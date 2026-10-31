@@ -7,12 +7,7 @@ import { Pagination, Autoplay } from "swiper/modules";
 import "swiper/css";
 import "swiper/css/pagination";
 
-import {
-  testimonials,
-  projects,
-  blogPosts as blogData,
-  happyClientsLogos,
-} from "@/data/site";
+import { testimonials, projects, happyClientsLogos } from "@/data/site";
 
 /* Testimonials — original Picto swiper. Renders ONLY if authentic
    testimonials exist; never shows invented content. */
@@ -68,9 +63,9 @@ export function HappyClients() {
 // Populated only when verified client names/logos are provided in data/site.js
 const happyClientItems = happyClientsLogos;
 
-/* Blog preview — original Picto card style. Empty state is honest. */
-export function BlogPreview() {
-  const blogPosts = blogData;
+/* Blog preview — original Picto card style. Real published Sanity posts are
+   fetched on the server (app/page.jsx) and passed down; empty state is honest. */
+export function BlogPreview({ posts = [] }) {
   return (
     <section id="blogs" className="section-padding pt-0">
       <div className="mx-auto max-w-7xl px-4 sm:px-6">
@@ -86,7 +81,7 @@ export function BlogPreview() {
           </Link>
         </div>
 
-        {blogPosts.length === 0 ? (
+        {posts.length === 0 ? (
           <div className="picto-card mt-10 p-10 text-center">
             <p className="text-gray">
               Articles are on the way — I&apos;m preparing my first posts on AI
@@ -99,10 +94,14 @@ export function BlogPreview() {
           </div>
         ) : (
           <div className="mt-10 grid gap-8 sm:grid-cols-2 lg:grid-cols-3">
-            {blogPosts.slice(0, 3).map((post) => (
-              <article key={post.slug} className="picto-card p-8">
+            {posts.slice(0, 3).map((post) => (
+              <article key={post._id || post.slug} className="picto-card p-8">
                 <span className="tag-chip">{post.category}</span>
-                <h3 className="mt-3 text-lg font-bold">{post.title}</h3>
+                <h3 className="mt-3 text-lg font-bold">
+                  <Link href={`/blog/${post.slug}`} className="hover:text-[var(--main-color)]">
+                    {post.title}
+                  </Link>
+                </h3>
                 <p className="text-gray mt-2 text-sm">{post.excerpt}</p>
               </article>
             ))}

@@ -1,5 +1,24 @@
+import fs from "node:fs";
+import path from "node:path";
 import Link from "next/link";
 import { heroData, siteConfig } from "@/data/site";
+
+/* Server-rendered profile image: shows the real photo as soon as it exists
+   at public/images/profile.jpg, otherwise renders nothing (the styled "AK"
+   monogram behind it acts as the placeholder). No client event handlers, so
+   this is safe to pass through async server components. */
+function ProfileImage() {
+  const photoPath = path.join(process.cwd(), "public", "images", "profile.jpg");
+  if (!fs.existsSync(photoPath)) return null;
+  return (
+    // eslint-disable-next-line @next/next/no-img-element
+    <img
+      src="/images/profile.jpg"
+      alt="Portrait of Ali Khan, AI Automation & Digital Solutions Specialist"
+      className="h-full w-full object-cover"
+    />
+  );
+}
 
 /* Original Picto hero/introduction layout: badge, big Work Sans title with
    gradient word, description, two pill CTAs, decorative dots + radial glow. */
@@ -62,16 +81,11 @@ export default function Introduction() {
             aria-hidden="true"
           />
           <div className="relative aspect-square overflow-hidden rounded-full border-8 border-white shadow-[0_30px_60px_-25px_rgba(133,52,234,0.4)]">
-            {/* eslint-disable-next-line @next/next/no-img-element */}
-            <img
-              src="/images/profile.jpg"
-              alt="Portrait of Ali Khan, AI Automation & Digital Solutions Specialist"
-              className="h-full w-full object-cover"
-              onError={(e) => {
-                // Graceful placeholder until the real photo is supplied.
-                e.currentTarget.style.display = "none";
-              }}
-            />
+            {/* Real photo appears automatically once you add it at
+                public/images/profile.jpg — no code change needed.
+                Server-rendered fallback (no inline event handlers) keeps
+                this safe to render from async server components. */}
+            <ProfileImage />
             <div
               className="absolute inset-0 flex items-center justify-center bg-[rgba(133,52,234,0.12)] text-6xl font-extrabold text-[var(--main-color)]"
               aria-hidden="true"

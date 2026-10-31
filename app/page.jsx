@@ -9,6 +9,7 @@ import Testimonial, { HappyClients, BlogPreview } from "@/components/sections/Dy
 import WorkTogether from "@/components/sections/WorkTogether";
 import ContactSection from "@/components/sections/Contact";
 import { projects, absoluteUrl } from "@/data/site";
+import { getBlogPage } from "@/lib/sanity/fetch";
 
 export const metadata = {
   title: "Ali Khan — AI Automation & Digital Solutions Specialist",
@@ -17,7 +18,9 @@ export const metadata = {
   alternates: { canonical: absoluteUrl("/") },
 };
 
-export default function HomePage() {
+export default async function HomePage() {
+  // Latest published Sanity posts for the home blog preview (ISR-cached).
+  const { posts: latestPosts } = await getBlogPage({ page: 1 });
   return (
     <PageShell heroShape>
       {/* Legacy /#hash link support without breaking home smooth scrolling */}
@@ -44,7 +47,7 @@ export default function HomePage() {
         </div>
       </section>
       <Testimonial />
-      <BlogPreview />
+      <BlogPreview posts={latestPosts} />
       <WorkTogether />
       <ContactSection showHeading={false} />
     </PageShell>
