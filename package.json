@@ -1,0 +1,31 @@
+{
+  "name": "ali-khan-portfolio",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Personal portfolio of Ali Khan — AI Automation & Digital Solutions Specialist (migrated from the Picto Vite template to Next.js App Router, original design preserved).",
+  "scripts": {
+    "seo:gen": "node scripts/gen-seo-files.mjs",
+    "predev": "node scripts/gen-seo-files.mjs",
+    "prebuild": "node scripts/gen-seo-files.mjs",
+    "dev": "next dev",
+    "build": "next build",
+    "start": "next start",
+    "lint": "next lint"
+  },
+  "dependencies": {
+    "@fontsource/work-sans": "^5.2.5",
+    "framer-motion": "^12.5.0",
+    "next": "^15.3.1",
+    "react": "^19.1.0",
+    "react-dom": "^19.1.0",
+    "react-scroll": "^1.9.0",
+    "swiper": "^11.2.6"
+  },
+  "devDependencies": {
+    "@tailwindcss/postcss": "^4.1.4",
+    "daisyui": "^5.0.12",
+    "eslint": "^8.57.1",
+    "eslint-config-next": "^15.3.1",
+    "tailwindcss": "^4.1.4"
+  }
+}

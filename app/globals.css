@@ -1,0 +1,301 @@
+@import "tailwindcss";
+@plugin "daisyui" {
+  themes: light --default;
+}
+
+/* ============================================================
+   ORIGINAL PICTO TEMPLATE DESIGN TOKENS — DO NOT REDESIGN.
+   Purple palette, Work Sans typography and decorative gradients
+   preserved from the Vite template.
+   ============================================================ */
+
+:root {
+  --main-color: #8534ea;
+  --body-color: #fbfaff;
+  --heading-color: #1c1c1c;
+  --text-gray: #6b7280;
+  --border-color: rgba(133, 52, 234, 0.15);
+  --shadow-color: rgba(133, 52, 234, 0.18);
+  --white: #ffffff;
+  --black: #1c1c1c;
+}
+
+@theme inline {
+  --color-primary: var(--main-color);
+  --color-body: var(--body-color);
+  --color-heading: var(--heading-color);
+  --color-textgray: var(--text-gray);
+  --font-sans: "Work Sans", ui-sans-serif, system-ui, sans-serif;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  background: var(--body-color);
+  color: var(--heading-color);
+  font-family: "Work Sans", sans-serif;
+  overflow-x: hidden;
+}
+
+/* ---------- Original Picto typography hierarchy ---------- */
+.hero-title {
+  font-size: clamp(2.5rem, 6vw, 4.5rem);
+  font-weight: 800;
+  line-height: 1.1;
+  text-transform: capitalize;
+  color: var(--heading-color);
+}
+
+.section-title {
+  font-size: clamp(1.75rem, 3.5vw, 2.5rem);
+  font-weight: 700;
+  line-height: 1.2;
+  color: var(--heading-color);
+}
+
+.sub-title {
+  display: inline-block;
+  font-size: 0.875rem;
+  font-weight: 600;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  color: var(--main-color);
+}
+
+.text-gray {
+  color: var(--text-gray);
+}
+
+/* ---------- Gradient / decorative elements (original) ---------- */
+.gradient-text {
+  background: linear-gradient(90deg, #8534ea 0%, #b06bff 100%);
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+  color: transparent;
+}
+
+.hero-bg-shape {
+  position: absolute;
+  inset: 0;
+  z-index: -10;
+  overflow: hidden;
+  pointer-events: none;
+}
+
+.hero-bg-shape::before {
+  content: "";
+  position: absolute;
+  top: -20%;
+  right: -10%;
+  width: 55%;
+  height: 90%;
+  border-radius: 100%;
+  background: radial-gradient(
+    circle at center,
+    rgba(133, 52, 234, 0.14) 0%,
+    rgba(133, 52, 234, 0) 70%
+  );
+}
+
+.dots-shape {
+  background-image: radial-gradient(
+    var(--main-color) 1px,
+    transparent 1px
+  );
+  background-size: 12px 12px;
+  opacity: 0.2;
+}
+
+/* ---------- Buttons (original Picto style) ---------- */
+.btn-primary {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  background: var(--main-color);
+  color: #fff;
+  font-weight: 600;
+  padding: 0.875rem 1.75rem;
+  border-radius: 9999px;
+  border: 1px solid var(--main-color);
+  transition: all 0.3s ease-in-out;
+  cursor: pointer;
+}
+
+.btn-primary:hover {
+  background: transparent;
+  color: var(--main-color);
+  box-shadow: 0 10px 25px -10px var(--shadow-color);
+}
+
+.btn-outline {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  background: transparent;
+  color: var(--heading-color);
+  font-weight: 600;
+  padding: 0.875rem 1.75rem;
+  border-radius: 9999px;
+  border: 1px solid var(--border-color);
+  transition: all 0.3s ease-in-out;
+  cursor: pointer;
+}
+
+.btn-outline:hover {
+  border-color: var(--main-color);
+  color: var(--main-color);
+  box-shadow: 0 10px 25px -10px var(--shadow-color);
+}
+
+/* ---------- Cards (original Picto style) ---------- */
+.picto-card {
+  background: var(--white);
+  border: 1px solid var(--border-color);
+  border-radius: 1.5rem;
+  box-shadow: 0 20px 40px -24px var(--shadow-color);
+  transition: all 0.3s ease-in-out;
+}
+
+.picto-card:hover {
+  transform: translateY(-6px);
+  box-shadow: 0 30px 50px -20px var(--shadow-color);
+  border-color: var(--main-color);
+}
+
+.icon-circle {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 4rem;
+  height: 4rem;
+  border-radius: 9999px;
+  background: rgba(133, 52, 234, 0.1);
+  color: var(--main-color);
+  font-size: 1.5rem;
+  transition: all 0.3s ease-in-out;
+}
+
+.picto-card:hover .icon-circle {
+  background: var(--main-color);
+  color: #fff;
+}
+
+.tag-chip {
+  display: inline-block;
+  font-size: 0.75rem;
+  font-weight: 500;
+  padding: 0.25rem 0.75rem;
+  border-radius: 9999px;
+  background: rgba(133, 52, 234, 0.08);
+  color: var(--main-color);
+  border: 1px solid var(--border-color);
+}
+
+.pending-chip {
+  display: inline-block;
+  font-size: 0.7rem;
+  font-weight: 600;
+  letter-spacing: 0.5px;
+  padding: 0.2rem 0.6rem;
+  border-radius: 9999px;
+  background: #fff7ed;
+  color: #9a3412;
+  border: 1px dashed #fdba74;
+}
+
+/* ---------- Section spacing (original) ---------- */
+.section-padding {
+  padding-top: 6rem;
+  padding-bottom: 6rem;
+}
+
+@media (max-width: 768px) {
+  .section-padding {
+    padding-top: 4rem;
+    padding-bottom: 4rem;
+  }
+}
+
+/* ---------- Navbar (original) ---------- */
+.nav-link {
+  font-weight: 500;
+  color: var(--heading-color);
+  transition: color 0.25s ease-in-out;
+  cursor: pointer;
+}
+
+.nav-link:hover,
+.nav-link.active {
+  color: var(--main-color);
+}
+
+/* ---------- Swiper tweaks (original) ---------- */
+.swiper-pagination-bullet {
+  background: var(--main-color) !important;
+  opacity: 0.35 !important;
+}
+
+.swiper-pagination-bullet-active {
+  opacity: 1 !important;
+}
+
+/* ---------- Marquee (client logos strip) ---------- */
+@keyframes marquee {
+  0% {
+    transform: translateX(0);
+  }
+  100% {
+    transform: translateX(-50%);
+  }
+}
+
+.animate-marquee {
+  animation: marquee 25s linear infinite;
+}
+
+.marquee-wrapper:hover .animate-marquee {
+  animation-play-state: paused;
+}
+
+/* ---------- Scroll-to-top button ---------- */
+.scroll-top-btn {
+  position: fixed;
+  bottom: 2rem;
+  right: 2rem;
+  z-index: 50;
+  width: 3rem;
+  height: 3rem;
+  border-radius: 9999px;
+  background: var(--main-color);
+  color: #fff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 10px 25px -10px var(--shadow-color);
+  transition: all 0.3s ease-in-out;
+  cursor: pointer;
+}
+
+.scroll-top-btn:hover {
+  transform: translateY(-4px);
+}
+
+/* ---------- Forms ---------- */
+.form-input {
+  width: 100%;
+  background: var(--white);
+  border: 1px solid var(--border-color);
+  border-radius: 0.75rem;
+  padding: 0.875rem 1.25rem;
+  font-family: inherit;
+  transition: all 0.25s ease-in-out;
+  outline: none;
+}
+
+.form-input:focus {
+  border-color: var(--main-color);
+  box-shadow: 0 0 0 3px rgba(133, 52, 234, 0.12);
+}

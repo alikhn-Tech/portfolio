@@ -1,0 +1,8 @@
+User-agent: *
+Allow: /
+
+# Keep framework internals out of the index
+Disallow: /_next/
+
+# Sitemap URL pending: set NEXT_PUBLIC_SITE_URL and rebuild
+# Host: PENDING — set NEXT_PUBLIC_SITE_URL
