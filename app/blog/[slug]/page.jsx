@@ -26,7 +26,7 @@ export async function generateMetadata({ params }) {
   const title = seo.title || post.title;
   const description = seo.description || post.excerpt || "";
   const image =
-    urlForImage(seo.image || post.image, { width: 1200 }) || undefined;
+    urlForImage(seo.ogImage || post.image, { width: 1200 }) || undefined;
 
   return {
     title,
