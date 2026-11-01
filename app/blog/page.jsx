@@ -2,7 +2,7 @@ import Link from "next/link";
 import PageShell from "@/components/common/PageShell";
 import WorkTogether from "@/components/sections/WorkTogether";
 import PostCard, { formatDate } from "@/components/blog/PostCard";
-import { getBlogPage, BLOG_REVALIDATE } from "@/lib/sanity/fetch";
+import { getBlogPage, getActiveCategories, BLOG_REVALIDATE } from "@/lib/sanity/fetch";
 import { urlForImage } from "@/lib/sanity/image";
 import { absoluteUrl } from "@/data/site";
 
@@ -17,35 +17,18 @@ export const metadata = {
 // (webhook-triggered revalidation; 60s time-based fallback).
 export const revalidate = 60;
 
-const CATEGORY_ORDER = [
-  "AI Automation",
-  "AI Agents",
-  "n8n & Workflow Automation",
-  "WhatsApp Automation",
-  "Voice AI",
-  "Web Development",
-  "Next.js & Web Applications",
-  "Google Ads",
-  "Performance Marketing",
-  "Digital Growth",
-];
-
-function slugifyCategory(name) {
-  return String(name)
-    .toLowerCase()
-    .replace(/[^a-z0-9]+/g, "-")
-    .replace(/^-+|-+$/g, "");
-}
-
 export default async function BlogPage({ searchParams }) {
   const sp = await searchParams;
   const page = Math.max(1, parseInt(sp.page || "1", 10) || 1);
   const categorySlug = sp.category ? String(sp.category) : null;
 
-  const { posts, total, totalPages } = await getBlogPage({
-    page,
-    category: categorySlug,
-  });
+  // Categories come from Sanity (published posts only, live counts).
+  // Empty categories are filtered out in getActiveCategories().
+  const [categories, blogPage] = await Promise.all([
+    getActiveCategories(),
+    getBlogPage({ page, category: categorySlug }),
+  ]);
+  const { posts, total, totalPages } = blogPage;
 
   // Featured = first post on page 1 (listing is ordered newest-first;
   // the Studio's `featured` flag surfaces a post via its own badge too).
@@ -118,22 +101,19 @@ export default async function BlogPage({ searchParams }) {
                 >
                   All
                 </Link>
-                {CATEGORY_ORDER.map((name) => {
-                  const slug = slugifyCategory(name);
-                  return (
-                    <Link
-                      key={slug}
-                      href={buildQuery({ page: 1, category: slug })}
-                      className={`tag-chip !text-xs transition ${
-                        categorySlug === slug
-                          ? "!bg-[var(--main-color)] !text-white"
-                          : "hover:!bg-[rgba(133,52,234,0.15)]"
-                      }`}
-                    >
-                      {name}
-                    </Link>
-                  );
-                })}
+                {categories.map(({ name, slug }) => (
+                  <Link
+                    key={slug}
+                    href={`/blog/category/${slug}`}
+                    className={`tag-chip !text-xs transition ${
+                      categorySlug === slug
+                        ? "!bg-[var(--main-color)] !text-white"
+                        : "hover:!bg-[rgba(133,52,234,0.15)]"
+                    }`}
+                  >
+                    {name}
+                  </Link>
+                ))}
               </div>
 
               {/* Featured article panel */}
