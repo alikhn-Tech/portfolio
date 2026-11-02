@@ -83,8 +83,8 @@ export default async function BlogPage({ searchParams }) {
                 </Link>{" "}
                 about a topic you&apos;d like covered.
               </p>
-              <span className="pending-chip mt-6 inline-block">
-                Content pending
+              <span className="tag-chip mt-6 inline-block">
+                New articles publish here first
               </span>
             </div>
           ) : (

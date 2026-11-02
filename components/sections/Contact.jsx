@@ -4,16 +4,20 @@ import Link from "next/link";
 import { useState } from "react";
 
 const WEBHOOK_URL = process.env.NEXT_PUBLIC_N8N_WEBHOOK_URL || "";
+const CONTACT_EMAIL = process.env.NEXT_PUBLIC_CONTACT_EMAIL || "";
 
 const initialForm = { name: "", email: "", subject: "", message: "" };
 
 /* Original Picto contact section: form card + info column. Posts to the n8n
-   Form-Trigger webhook when NEXT_PUBLIC_N8N_WEBHOOK_URL is configured;
-   otherwise falls back to a mailto link. No secrets are exposed client-side. */
+   Form-Trigger webhook when NEXT_PUBLIC_N8N_WEBHOOK_URL is configured.
+   Success is shown ONLY after the webhook responds with HTTP 2xx. When the
+   webhook is not configured we never claim delivery — visitors see a clear
+   fallback with real contact methods only (no empty mailto: links).
+   No secrets are exposed client-side. */
 export default function Contact({ showHeading = true }) {
   const [form, setForm] = useState(initialForm);
   const [errors, setErrors] = useState({});
-  const [status, setStatus] = useState("idle"); // idle | sending | sent | error
+  const [status, setStatus] = useState("idle"); // idle | sending | sent | error | unconfigured
 
   const validate = () => {
     const e = {};
@@ -38,33 +42,33 @@ export default function Contact({ showHeading = true }) {
       return;
     }
 
+    // Webhook not configured: do NOT pretend the message was sent. Show a
+    // clear fallback pointing to real contact methods (if any are provided).
+    if (!WEBHOOK_URL) {
+      setStatus("unconfigured");
+      return;
+    }
+
     setStatus("sending");
     try {
-      if (WEBHOOK_URL) {
-        const res = await fetch(WEBHOOK_URL, {
-          method: "POST",
-          headers: { "Content-Type": "application/json" },
-          body: JSON.stringify({
-            name: form.name.trim(),
-            email: form.email.trim(),
-            subject: form.subject.trim() || "Portfolio enquiry",
-            message: form.message.trim(),
-            source: "ali-khan-portfolio/contact-form",
-          }),
-        });
-        if (!res.ok) throw new Error(`Webhook responded ${res.status}`);
-      } else {
-        // Webhook not configured yet — open a prefilled email instead.
-        const to = encodeURIComponent("");
-        const subject = encodeURIComponent(form.subject || "Portfolio enquiry");
-        const body = encodeURIComponent(
-          `Name: ${form.name}\nEmail: ${form.email}\n\n${form.message}`,
-        );
-        window.location.href = `mailto:?to=${to}&subject=${subject}&body=${body}`;
-      }
+      const res = await fetch(WEBHOOK_URL, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          name: form.name.trim(),
+          email: form.email.trim(),
+          subject: form.subject.trim() || "Portfolio enquiry",
+          message: form.message.trim(),
+          source: "ali-khan-portfolio/contact-form",
+        }),
+      });
+      if (!res.ok) throw new Error(`Webhook responded ${res.status}`);
+      // Success is shown only after an actual 2xx response from n8n.
       setStatus("sent");
       setForm(initialForm);
     } catch {
+      // Network error / non-2xx: keep the typed message intact so nothing
+      // is silently discarded; the visitor can retry or use another channel.
       setStatus("error");
     }
   };
@@ -92,31 +96,31 @@ export default function Contact({ showHeading = true }) {
               business day.
             </p>
             <ul className="mt-6 space-y-4 text-sm">
-              <li className="flex items-center gap-3">
-                <span className="icon-circle !h-10 !w-10 !text-base">
-                  <i className="fa-solid fa-envelope" aria-hidden="true" />
-                </span>
-                <span className="text-gray">
-                  Email:{" "}
-                  {process.env.NEXT_PUBLIC_CONTACT_EMAIL ? (
+              {/* Only real, configured contact methods are shown — no
+                  placeholder or empty links appear publicly. */}
+              {CONTACT_EMAIL && (
+                <li className="flex items-center gap-3">
+                  <span className="icon-circle !h-10 !w-10 !text-base">
+                    <i className="fa-solid fa-envelope" aria-hidden="true" />
+                  </span>
+                  <span className="text-gray">
+                    Email:{" "}
                     <a
-                      href={`mailto:${process.env.NEXT_PUBLIC_CONTACT_EMAIL}`}
+                      href={`mailto:${CONTACT_EMAIL}`}
                       className="font-medium text-[var(--main-color)]"
                     >
-                      {process.env.NEXT_PUBLIC_CONTACT_EMAIL}
+                      {CONTACT_EMAIL}
                     </a>
-                  ) : (
-                    <em>pending verification</em>
-                  )}
-                </span>
-              </li>
-              <li className="flex items-center gap-3">
-                <span className="icon-circle !h-10 !w-10 !text-base">
-                  <i className="fa-brands fa-whatsapp" aria-hidden="true" />
-                </span>
-                <span className="text-gray">
-                  WhatsApp:{" "}
-                  {process.env.NEXT_PUBLIC_WHATSAPP ? (
+                  </span>
+                </li>
+              )}
+              {process.env.NEXT_PUBLIC_WHATSAPP && (
+                <li className="flex items-center gap-3">
+                  <span className="icon-circle !h-10 !w-10 !text-base">
+                    <i className="fa-brands fa-whatsapp" aria-hidden="true" />
+                  </span>
+                  <span className="text-gray">
+                    WhatsApp:{" "}
                     <a
                       href={`https://wa.me/${process.env.NEXT_PUBLIC_WHATSAPP.replace(/[^0-9]/g, "")}`}
                       target="_blank"
@@ -125,17 +129,10 @@ export default function Contact({ showHeading = true }) {
                     >
                       Message me
                     </a>
-                  ) : (
-                    <em>pending verification</em>
-                  )}
-                </span>
-              </li>
+                  </span>
+                </li>
+              )}
             </ul>
-            {!WEBHOOK_URL && (
-              <p className="pending-chip mt-6 inline-block">
-                Form delivery pending: set NEXT_PUBLIC_N8N_WEBHOOK_URL
-              </p>
-            )}
           </div>
 
           {/* Form column */}
@@ -244,8 +241,57 @@ export default function Contact({ showHeading = true }) {
                 {status === "error" && (
                   <p className="text-sm font-medium text-red-600" role="alert">
                     <i className="fa-solid fa-circle-exclamation mr-1" aria-hidden="true" />
-                    Something went wrong. Please try again or email directly.
+                    Something went wrong and your message was not delivered.
+                    Please try again
+                    {CONTACT_EMAIL ? (
+                      <>
+                        {" "}or email{" "}
+                        <a
+                          href={`mailto:${CONTACT_EMAIL}`}
+                          className="underline"
+                        >
+                          {CONTACT_EMAIL}
+                        </a>
+                      </>
+                    ) : (
+                      "."
+                    )}
                   </p>
+                )}
+                {status === "unconfigured" && (
+                  <div
+                    className="w-full rounded-xl border border-[var(--border-color)] bg-[rgba(133,52,234,0.06)] p-4 text-sm"
+                    role="alert"
+                  >
+                    <p className="font-semibold">
+                      <i
+                        className="fa-solid fa-triangle-exclamation mr-1 text-[var(--main-color)]"
+                        aria-hidden="true"
+                      />
+                      The contact form is not available right now.
+                    </p>
+                    <p className="text-gray mt-1 leading-relaxed">
+                      Your message has <strong>not</strong> been sent — it is
+                      still in the form above, so nothing is lost.
+                      {CONTACT_EMAIL || process.env.NEXT_PUBLIC_WHATSAPP ? (
+                        <>
+                          {" "}Please reach me using one of the contact methods
+                          listed alongside this form.
+                        </>
+                      ) : (
+                        <>
+                          {" "}Please visit my{" "}
+                          <Link
+                            href="/contact"
+                            className="text-[var(--main-color)] hover:underline"
+                          >
+                            contact page
+                          </Link>{" "}
+                          for other ways to get in touch.
+                        </>
+                      )}
+                    </p>
+                  </div>
                 )}
               </div>
             </form>

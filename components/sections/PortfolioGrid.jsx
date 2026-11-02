@@ -24,10 +24,13 @@ export default function PortfolioGrid({ items = projects, linkTo = "/case-studie
             ) : (
               <div className="flex flex-col items-center gap-2 text-[var(--main-color)]">
                 <i
-                  className="fa-regular fa-image text-4xl opacity-50"
+                  className="fa-solid fa-laptop-code text-4xl opacity-50"
                   aria-hidden="true"
                 />
-                <span className="pending-chip">Screenshot pending</span>
+                {/* Neutral label only — no "pending"/placeholder language. */}
+                <span className="text-xs font-medium uppercase tracking-wider opacity-70">
+                  Screenshot not available
+                </span>
               </div>
             )}
             <span className="tag-chip absolute left-4 top-4 bg-white/90">

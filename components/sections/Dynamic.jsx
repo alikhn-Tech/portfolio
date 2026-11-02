@@ -88,8 +88,8 @@ export function BlogPreview({ posts = [] }) {
               agents, n8n automations and performance marketing. No filler
               content here, so nothing is published until it&apos;s written.
             </p>
-            <span className="pending-chip mt-4 inline-block">
-              Content pending
+            <span className="tag-chip mt-4 inline-block">
+              New articles publish here first
             </span>
           </div>
         ) : (

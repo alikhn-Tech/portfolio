@@ -48,7 +48,37 @@ if (!SITE) {
 
 const base = SITE; // "" when unset -> flagged placeholders
 
-const urls = routes
+// Fetch published blog slugs straight from Sanity so the sitemap includes
+// real article URLs. The query excludes drafts (`!(_id in path("drafts.**"))`)
+// and unpublished posts (`defined(publishedAt)`), so only published articles
+// are listed. Failure is non-fatal: static routes are still written.
+async function fetchPublishedSlugs() {
+  try {
+    const url =
+      "https://ktndwv6h.api.sanity.io/v2025-07-01/data/query/production?query=" +
+      encodeURIComponent(
+        '*[_type == "post" && !(_id in path("drafts.**")) && defined(publishedAt)].slug.current',
+      );
+    const res = await fetch(url);
+    if (!res.ok) throw new Error(`Sanity responded ${res.status}`);
+    const json = await res.json();
+    return (json.result || []).filter((s) => typeof s === "string" && s);
+  } catch (err) {
+    console.warn(`⚠️  Could not fetch blog slugs for sitemap: ${err.message}`);
+    return [];
+  }
+}
+
+const blogSlugs = await fetchPublishedSlugs();
+
+const urls = [
+  ...routes,
+  ...blogSlugs.map((slug) => ({
+    path: `/blog/${slug}`,
+    priority: "0.6",
+    freq: "monthly",
+  })),
+]
   .map(
     (r) =>
       `  <url>\n    <loc>${base}${r.path}</loc>\n` +
