@@ -112,7 +112,7 @@ export default function Footer() {
                       rel="noopener noreferrer"
                       className="hover:text-white"
                     >
-                      WhatsApp
+                      WhatsApp: {siteConfig.whatsappDisplay || siteConfig.whatsapp}
                     </a>
                   </li>
                 )}
