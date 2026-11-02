@@ -8,11 +8,13 @@ export const siteConfig = {
   title: "Ali Khan — AI Automation & Digital Solutions Specialist",
   description:
     "Ali Khan builds intelligent digital solutions combining AI agents, workflow automation, web development and performance marketing.",
-  // ---- Contact details: PENDING — supply verified values before launch ----
-  email: "", // TODO: provide verified email address
-  whatsapp: "", // TODO: international format, e.g. +923001234567
-  cvUrl: "", // TODO: provide CV/resume file under public/ once ready
-  // ---- Social profile URLs: PENDING — leave empty until provided ----
+  // ---- Contact details: values are supplied via environment/config.
+  // Anything left empty is HIDDEN from the public UI (never shown as a
+  // placeholder). See .env.example for the matching NEXT_PUBLIC_ vars.
+  email: "", // provide verified email address
+  whatsapp: "", // international format, e.g. +923001234567
+  cvUrl: "", // CV/resume file under public/ once ready
+  // ---- Social profile URLs: leave empty until provided ----
   socials: {
     linkedin: "",
     github: "",
@@ -28,6 +30,9 @@ export const siteConfig = {
 export function absoluteUrl(path = "/") {
   const base = process.env.NEXT_PUBLIC_SITE_URL;
   if (!base) return path;
+  // Guard against a misconfigured Vercel preview URL being treated as the
+  // permanent production domain: *.vercel.app URLs are never canonical.
+  if (/\.vercel\.app\/?$/i.test(base)) return path;
   return `${base.replace(/\/+$/, "")}${path === "/" ? "" : path}`;
 }
 
@@ -72,7 +77,8 @@ export const aboutData = {
   facts: [
     { label: "Name", value: "Ali Khan" },
     { label: "Role", value: "AI Automation & Digital Solutions Specialist" },
-    { label: "Based in", value: "PENDING — please provide your city/country" },
+    // "Based in" is omitted until a verified city/country is supplied —
+    // no placeholder text is shown publicly.
     { label: "Freelance", value: "Available" },
   ],
 };

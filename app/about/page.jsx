@@ -3,7 +3,7 @@ import Profile from "@/components/sections/Profile";
 import WorkProcess from "@/components/sections/WorkProcess";
 import Testimonial from "@/components/sections/Dynamic";
 import WorkTogether from "@/components/sections/WorkTogether";
-import { aboutData, experienceTimeline, absoluteUrl } from "@/data/site";
+import { experienceTimeline, absoluteUrl } from "@/data/site";
 
 export const metadata = {
   title: "About Ali Khan",
@@ -41,12 +41,6 @@ export default function AboutPage() {
               </li>
             ))}
           </ol>
-
-          <p className="text-gray mt-8 text-xs italic">
-            Additional verified details (location: {""}
-            {aboutData.facts.find((f) => f.label === "Based in")?.value}) will
-            be published once supplied.
-          </p>
         </div>
       </section>
 

@@ -91,24 +91,21 @@ export default function Footer() {
             <div>
               <h3 className="text-lg font-semibold">Get In Touch</h3>
               <ul className="mt-4 space-y-3 text-sm text-white/80">
-                <li className="flex items-center gap-3">
-                  <i className="fa-solid fa-envelope" aria-hidden="true" />
-                  {siteConfig.email ? (
+                {/* Only real, configured contact methods are shown publicly. */}
+                {siteConfig.email && (
+                  <li className="flex items-center gap-3">
+                    <i className="fa-solid fa-envelope" aria-hidden="true" />
                     <a
                       href={`mailto:${siteConfig.email}`}
                       className="hover:text-white"
                     >
                       {siteConfig.email}
                     </a>
-                  ) : (
-                    <span>
-                      Email — <em>pending verification</em>
-                    </span>
-                  )}
-                </li>
-                <li className="flex items-center gap-3">
-                  <i className="fa-brands fa-whatsapp" aria-hidden="true" />
-                  {siteConfig.whatsapp ? (
+                  </li>
+                )}
+                {siteConfig.whatsapp && (
+                  <li className="flex items-center gap-3">
+                    <i className="fa-brands fa-whatsapp" aria-hidden="true" />
                     <a
                       href={`https://wa.me/${siteConfig.whatsapp.replace(/[^0-9]/g, "")}`}
                       target="_blank"
@@ -117,12 +114,8 @@ export default function Footer() {
                     >
                       WhatsApp
                     </a>
-                  ) : (
-                    <span>
-                      WhatsApp — <em>pending verification</em>
-                    </span>
-                  )}
-                </li>
+                  </li>
+                )}
                 <li>
                   <Link
                     href="/contact"
