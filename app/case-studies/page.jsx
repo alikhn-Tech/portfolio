@@ -73,14 +73,18 @@ export default function CaseStudiesPage() {
                   />
                 </a>
               </div>
-              <div className="relative bg-[rgba(133,52,234,0.07)] p-8 sm:p-10">
-                {/* eslint-disable-next-line @next/next/no-img-element */}
-                <img
-                  src="/case-studies/7daysready-google-ads.jpg"
-                  alt="Google Ads campaign screenshot for 7DaysReady's driving school — 55 calls generated in the campaign's first month"
-                  loading="lazy"
-                  className="w-full rounded-xl border border-[var(--border-color)] object-cover shadow-[0_20px_50px_-25px_rgba(133,52,234,0.5)]"
-                />
+              <div className="relative flex items-center justify-center bg-[rgba(133,52,234,0.07)] p-8 sm:p-10">
+                {/* Full campaign screenshot shown with object-contain inside a
+                    white evidence frame — no metrics or text are cropped. */}
+                <div className="flex max-h-[560px] w-full items-center justify-center overflow-hidden rounded-xl border border-[var(--border-color)] bg-white p-2 shadow-[0_20px_50px_-25px_rgba(133,52,234,0.5)]">
+                  {/* eslint-disable-next-line @next/next/no-img-element */}
+                  <img
+                    src="/case-studies/7daysready-google-ads.jpg"
+                    alt="Google Ads campaign screenshot for 7DaysReady's driving school — 55 calls generated in the campaign's first month"
+                    loading="lazy"
+                    className="max-h-full w-full object-contain"
+                  />
+                </div>
                 <p className="text-gray mt-4 text-center text-xs italic">
                   Campaign evidence — first month results screenshot.
                 </p>

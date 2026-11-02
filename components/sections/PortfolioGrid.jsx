@@ -9,14 +9,17 @@ export default function PortfolioGrid({ items = projects, linkTo = "/case-studie
     <div className="grid gap-8 sm:grid-cols-2 lg:grid-cols-3">
       {items.map((p) => (
         <article key={p.slug} id={p.slug} className="picto-card overflow-hidden">
-          {/* Thumbnail area */}
-          <div className="relative flex aspect-[16/10] items-center justify-center bg-[rgba(133,52,234,0.07)]">
+          {/* Thumbnail area — screenshots are portrait website captures, so
+              the frame is 4:5 and images use object-contain on a light card
+              background to avoid cropping site content. */}
+          <div className="relative flex aspect-[4/5] items-center justify-center overflow-hidden bg-white">
             {p.image ? (
               // eslint-disable-next-line @next/next/no-img-element
               <img
                 src={p.image}
                 alt={`${p.title} — project preview`}
-                className="absolute inset-0 h-full w-full object-cover"
+                loading="lazy"
+                className="h-full w-full object-contain"
               />
             ) : (
               <div className="flex flex-col items-center gap-2 text-[var(--main-color)]">

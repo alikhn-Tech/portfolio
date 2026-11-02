@@ -37,7 +37,7 @@ export default function CaseStudyList() {
                   : "project screenshot"
               }`}
               loading="lazy"
-              className="mt-6 aspect-[16/10] w-full rounded-xl border border-[var(--border-color)] object-cover object-top"
+              className="mt-6 aspect-[4/5] w-full rounded-xl border border-[var(--border-color)] bg-white object-contain"
             />
           )}
 
