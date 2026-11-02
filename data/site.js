@@ -8,15 +8,16 @@ export const siteConfig = {
   title: "Ali Khan — AI Automation & Digital Solutions Specialist",
   description:
     "Ali Khan builds intelligent digital solutions combining AI agents, workflow automation, web development and performance marketing.",
-  // ---- Contact details: values are supplied via environment/config.
+  // ---- Contact details: verified by the site owner (Nov 2026).
   // Anything left empty is HIDDEN from the public UI (never shown as a
   // placeholder). See .env.example for the matching NEXT_PUBLIC_ vars.
-  email: "", // provide verified email address
-  whatsapp: "", // international format, e.g. +923001234567
+  email: "alikhan.contact@gmail.com", // verified
+  whatsapp: "+923215720722", // verified — international format
+  whatsappDisplay: "+92 321 5720722", // verified — human-readable format
   cvUrl: "", // CV/resume file under public/ once ready
   // ---- Social profile URLs: leave empty until provided ----
   socials: {
-    linkedin: "",
+    linkedin: "https://www.linkedin.com/in/alikhan-tech/", // verified
     github: "",
     twitter: "",
     facebook: "",
