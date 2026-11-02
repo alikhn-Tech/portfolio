@@ -54,6 +54,21 @@ export default function PortfolioGrid({ items = projects, linkTo = "/case-studie
                 View Details
                 <i className="fa-solid fa-arrow-right" aria-hidden="true" />
               </Link>
+              {p.url && (
+                <a
+                  href={p.url}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="text-gray inline-flex items-center gap-2 text-sm font-medium hover:text-[var(--main-color)]"
+                  aria-label={`Visit the live ${p.title} website`}
+                >
+                  Visit Site
+                  <i
+                    className="fa-solid fa-arrow-up-right-from-square text-xs"
+                    aria-hidden="true"
+                  />
+                </a>
+              )}
               {p.status === "in-progress" && (
                 <span className="pending-chip">In progress</span>
               )}
