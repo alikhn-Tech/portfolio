@@ -24,6 +24,16 @@ export const siteConfig = {
     instagram: "",
     youtube: "",
   },
+  // ---- Agency: verified by the site owner (Nov 2026) ----
+  agency: {
+    name: "Webistic Marketing Solutions",
+    url: "https://webistic.co",
+    logo: "/brands/webistic.png", // official logo asset served by webistic.co (/logo.png)
+    role: "Co-Founder",
+    region: "UK-focused digital marketing agency",
+    description:
+      "Webistic Marketing Solutions is a UK-focused digital marketing agency delivering digital marketing, growth strategies, web development and automation for its clients. As Co-Founder I help lead the agency; client projects are delivered collaboratively with the Webistic team.",
+  },
 };
 
 // Canonical URL helper — returns an absolute URL only when
@@ -182,8 +192,46 @@ export const techStack = [
   "GA4",
 ];
 
+// ------------------------------------------------------------------
+// Tools & Technologies — official brand logos (simple-icons monochrome
+// SVGs, CC0, bundled locally under public/brands/) linking to each
+// platform's official site. Every entry below is backed by real usage
+// already documented elsewhere in this portfolio (techStack, expertise,
+// experience and project tags). Sanity was verified via package.json /
+// lib/sanity (the blog runs on Sanity). Claude ships as the Anthropic
+// brand mark (Claude is made by Anthropic).
+// ------------------------------------------------------------------
+export const toolLogos = [
+  // Web development
+  { name: "Next.js", url: "https://nextjs.org/", logo: "/brands/nextjs.svg", group: "Web development" },
+  { name: "React", url: "https://react.dev/", logo: "/brands/react.svg", group: "Web development" },
+  { name: "Tailwind CSS", url: "https://tailwindcss.com/", logo: "/brands/tailwindcss.svg", group: "Web development" },
+  { name: "Sanity", url: "https://www.sanity.io/", logo: "/brands/sanity.svg", group: "Web development" },
+  // AI and automation
+  { name: "n8n", url: "https://n8n.io/", logo: "/brands/n8n.svg", group: "AI and automation" },
+  { name: "OpenAI", url: "https://openai.com/", logo: "/brands/openai.svg", group: "AI and automation" },
+  { name: "Claude", url: "https://claude.ai/", logo: "/brands/claude.svg", group: "AI and automation" },
+  // Digital marketing
+  { name: "Google Ads", url: "https://ads.google.com/", logo: "/brands/google-ads.svg", group: "Digital marketing" },
+  { name: "Meta Ads", url: "https://www.facebook.com/business/ads", logo: "/brands/meta-ads.svg", group: "Digital marketing" },
+  // Development and deployment
+  { name: "GitHub", url: "https://github.com/", logo: "/brands/github.svg", group: "Development and deployment" },
+  { name: "Vercel", url: "https://vercel.com/", logo: "/brands/vercel.svg", group: "Development and deployment" },
+];
+
 // Experience timeline (used on /about). Strictly factual.
 export const experienceTimeline = [
+  {
+    period: "2025 — Present",
+    role: "Co-Founder",
+    org: "Webistic Marketing Solutions",
+    orgUrl: "https://webistic.co",
+    points: [
+      "Co-founded Webistic Marketing Solutions, a UK-focused digital marketing agency.",
+      "The agency delivers digital marketing, growth, web development and automation work for its clients.",
+      "Agency projects are completed collaboratively with the Webistic team.",
+    ],
+  },
   {
     period: "2025 — Present",
     role: "Junior Front-End Web Developer",
