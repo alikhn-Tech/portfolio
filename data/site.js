@@ -199,25 +199,74 @@ export const experienceTimeline = [
 ];
 
 // ------------------------------------------------------------------
-// PROJECTS — real engagement types, but client names / URLs / screenshots /
-// metrics are NOT yet supplied. Every unverified field is null and the UI
-// renders it as a clearly-labelled "details pending" placeholder.
+// PROJECTS — real client websites delivered collaboratively with Webistic
+// Marketing Solutions (contributed to frontend design & UI implementation),
+// plus verified AI-automation work. Names, URLs and screenshots below were
+// supplied and verified by the site owner.
 // ------------------------------------------------------------------
 export const projects = [
   {
-    slug: "webistic-client-websites",
-    title: "Client Websites — Webistic Marketing Solutions",
+    slug: "7daysready",
+    title: "7DaysReady",
     category: "Web Development",
     status: "delivered",
     summary:
-      "Four client websites developed while working as a Junior Front-End Web Developer at Webistic Marketing Solutions.",
-    client: null,
-    url: null,
-    image: null,
-    tags: ["React", "JavaScript", "HTML5", "CSS3"],
+      "Contributed to the frontend design and UI implementation of a UK driving school website, helping create a clear and user-friendly experience.",
+    client: "7DaysReady",
+    url: "https://7daysready.co.uk",
+    image: "/projects/7daysready.jpg",
+    tags: ["React", "Next.js", "Tailwind CSS", "UI Design"],
     details: [
-      "Scope: front-end development of four separate client websites.",
-      "Client names, live URLs and screenshots are pending verification.",
+      "Collaborative agency project delivered with Webistic Marketing Solutions.",
+      "My contribution: frontend design and UI implementation.",
+    ],
+  },
+  {
+    slug: "parkstone-minibuses",
+    title: "Parkstone Minibuses",
+    category: "Web Development",
+    status: "delivered",
+    summary:
+      "Contributed to the website's visual layout and frontend implementation, helping present the company's transport services online.",
+    client: "Parkstone Minibuses",
+    url: "https://parkstoneminibuses.com",
+    image: "/projects/parkstone-minibuses.jpg",
+    tags: ["React", "Next.js", "Responsive Design", "UI Design"],
+    details: [
+      "Collaborative agency project delivered with Webistic Marketing Solutions.",
+      "My contribution: visual layout and frontend implementation.",
+    ],
+  },
+  {
+    slug: "webistic",
+    title: "Webistic",
+    category: "Web Development",
+    status: "delivered",
+    summary:
+      "Contributed to the agency website's frontend design and UI implementation, supporting its professional digital presence.",
+    client: "Webistic",
+    url: "https://webistic.co",
+    image: "/projects/webistic.jpg",
+    tags: ["React", "Next.js", "UI Design", "Frontend"],
+    details: [
+      "Agency website built collaboratively at Webistic Marketing Solutions.",
+      "My contribution: frontend design and UI implementation.",
+    ],
+  },
+  {
+    slug: "onyx-gentleman-salon",
+    title: "Onyx Gentleman Salon",
+    category: "Web Development",
+    status: "delivered",
+    summary:
+      "Contributed to the frontend design and UI implementation, helping present the salon's services through a polished website experience.",
+    client: "Onyx Gentleman Salon",
+    url: "https://onyxgentlemansaloon.com",
+    image: "/projects/onyx-gentleman-salon.jpg",
+    tags: ["React", "Next.js", "UI Design", "Frontend"],
+    details: [
+      "Collaborative agency project delivered with Webistic Marketing Solutions.",
+      "My contribution: frontend design and UI implementation.",
     ],
   },
   {
@@ -226,14 +275,15 @@ export const projects = [
     category: "Performance Marketing",
     status: "delivered",
     summary:
-      "Managed Google Ads campaigns for a driving school client in Birmingham, UK, while at Webistic Marketing Solutions.",
-    client: null,
-    url: null,
-    image: null,
+      "Managed Google Ads campaigns for a driving school client in Birmingham, UK, while at Webistic Marketing Solutions. Generated 55 calls during the campaign's first month.",
+    client: "7DaysReady.co.uk",
+    url: "https://7daysready.co.uk",
+    image: "/case-studies/7daysready-google-ads.jpg",
     tags: ["Google Ads", "GA4", "Performance Marketing"],
     details: [
       "Scope: campaign management and performance tracking.",
-      "Campaign metrics and results are pending — none are published here.",
+      "Result: generated 55 calls during the campaign's first month.",
+      "Full case study with the campaign screenshot on /case-studies#google-ads-driving-school.",
     ],
   },
   {

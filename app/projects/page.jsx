@@ -3,6 +3,9 @@ import PortfolioGrid from "@/components/sections/PortfolioGrid";
 import WorkTogether from "@/components/sections/WorkTogether";
 import { projects, absoluteUrl } from "@/data/site";
 
+// The four real client websites (collaborative agency projects).
+const websiteProjects = projects.filter((p) => p.category === "Web Development");
+
 export const metadata = {
   title: "Projects & Portfolio",
   description:
@@ -20,17 +23,23 @@ export default function ProjectsPage() {
             My <span className="gradient-text">Projects</span>
           </h1>
           <p className="text-gray mt-4">
-            Real engagements across web development, performance marketing and
-            AI automation. Client names, screenshots and metrics are published
-            only after verification — pending items are clearly labelled.
+            Real client websites and engagements across web development,
+            performance marketing and AI automation. The four website projects
+            were delivered collaboratively with Webistic Marketing Solutions —
+            my contribution was frontend design and UI implementation.
           </p>
         </div>
       </section>
 
       <section id="portfolio" className="section-padding">
         <div className="mx-auto max-w-7xl px-4 sm:px-6">
+          {/* The four client websites are collaborative agency projects —
+              my contribution was frontend design & UI implementation. */}
+          <p className="text-gray mb-8 text-center text-sm font-medium uppercase tracking-[0.2em] sm:text-base">
+            Selected client projects delivered with Webistic Marketing Solutions
+          </p>
           {/* Cards link to /case-studies#slug — every slug has an anchor there */}
-          <PortfolioGrid items={projects} />
+          <PortfolioGrid items={websiteProjects} />
         </div>
       </section>
 

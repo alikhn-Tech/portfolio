@@ -26,6 +26,21 @@ export default function CaseStudyList() {
 
           <p className="text-gray mt-4 leading-relaxed">{p.summary}</p>
 
+          {/* Project screenshot / campaign evidence, when supplied */}
+          {p.image && (
+            // eslint-disable-next-line @next/next/no-img-element
+            <img
+              src={p.image}
+              alt={`${p.title} — ${
+                p.category === "Performance Marketing"
+                  ? "Google Ads campaign results screenshot (first month)"
+                  : "project screenshot"
+              }`}
+              loading="lazy"
+              className="mt-6 aspect-[4/5] w-full rounded-xl border border-[var(--border-color)] bg-white object-contain"
+            />
+          )}
+
           <dl className="mt-6 grid gap-4 sm:grid-cols-3">
             <div>
               <dt className="text-xs font-semibold uppercase tracking-wider text-[var(--main-color)]">

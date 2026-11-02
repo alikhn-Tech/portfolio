@@ -11,6 +11,9 @@ import ContactSection from "@/components/sections/Contact";
 import { projects, absoluteUrl } from "@/data/site";
 import { getBlogPage } from "@/lib/sanity/fetch";
 
+// Real client websites (collaborative agency projects) — featured on home.
+const websiteProjects = projects.filter((p) => p.category === "Web Development");
+
 export const metadata = {
   title: "Ali Khan — AI Automation & Digital Solutions Specialist",
   description:
@@ -42,7 +45,8 @@ export default async function HomePage() {
             </div>
           </div>
           <div className="mt-12">
-            <PortfolioGrid items={projects.slice(0, 3)} />
+            {/* Featured strip shows the real client websites */}
+            <PortfolioGrid items={websiteProjects.slice(0, 3)} />
           </div>
         </div>
       </section>
