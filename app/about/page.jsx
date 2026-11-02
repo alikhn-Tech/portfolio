@@ -1,5 +1,6 @@
 import PageShell from "@/components/common/PageShell";
 import Profile from "@/components/sections/Profile";
+import AgencyExperience from "@/components/sections/AgencyExperience";
 import WorkProcess from "@/components/sections/WorkProcess";
 import Testimonial from "@/components/sections/Dynamic";
 import WorkTogether from "@/components/sections/WorkTogether";
@@ -18,6 +19,9 @@ export default function AboutPage() {
       {/* Reuse the original Picto profile card for page context */}
       <Profile compact />
 
+      {/* Webistic Marketing Solutions — co-founder agency experience */}
+      <AgencyExperience />
+
       {/* Experience timeline — same picto-card language */}
       <section id="experience" className="section-padding pt-0">
         <div className="mx-auto max-w-4xl px-4 sm:px-6">
@@ -29,10 +33,21 @@ export default function AboutPage() {
 
           <ol className="mt-10 space-y-6">
             {experienceTimeline.map((x) => (
-              <li key={x.role} className="picto-card p-8">
+              <li key={`${x.role}-${x.org}`} className="picto-card p-8">
                 <span className="tag-chip">{x.period}</span>
                 <h3 className="mt-3 text-lg font-bold">{x.role}</h3>
-                <p className="text-gray text-sm">{x.org}</p>
+                {x.orgUrl ? (
+                  <a
+                    href={x.orgUrl}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="text-gray mt-1 inline-block text-sm transition-colors duration-200 hover:text-[var(--main-color)]"
+                  >
+                    {x.org}
+                  </a>
+                ) : (
+                  <p className="text-gray mt-1 text-sm">{x.org}</p>
+                )}
                 <ul className="text-gray mt-4 list-disc space-y-1 pl-5 text-sm">
                   {x.points.map((pt) => (
                     <li key={pt}>{pt}</li>
