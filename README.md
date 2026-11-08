@@ -62,6 +62,10 @@ and sitemap all follow.
 Drop your photo at `public/ali-khan.jpg`. The hero shows it automatically and
 falls back to an "AK" monogram if the file is missing.
 
+The full-resolution master lives in `assets/ali-khan-original.jpg` (2048×2048).
+The copy served from `public/` is resized to 1300×1300 and compressed, which
+takes the hero image from 2.7 MB to ~146 KB.
+
 ### Resume PDF
 
 Put your CV at `public/ali-khan-resume.pdf`. The **Download Resume** button in
