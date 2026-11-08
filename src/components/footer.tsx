@@ -1,5 +1,6 @@
+import Link from "next/link";
 import { Typography } from "@/components/ui";
-import { SITE } from "@/lib/site";
+import { BASE_PATH, SITE } from "@/lib/site";
 
 const LINKS = [
   { label: "Home", href: "#home" },
@@ -9,6 +10,7 @@ const LINKS = [
   { label: "Projects", href: "#projects" },
   { label: "How I Work", href: "#how-i-work" },
   { label: "Resume", href: "#resume" },
+  { label: "Blog", href: "/blog" },
   { label: "Contact", href: "#contact" },
 ];
 
@@ -26,12 +28,21 @@ export function Footer() {
             <ul className="flex flex-wrap justify-center gap-x-6 gap-y-3">
               {LINKS.map(({ label, href }) => (
                 <li key={label}>
-                  <a
-                    href={href}
-                    className="text-sm font-normal text-gray-700 transition-colors hover:text-gray-900"
-                  >
-                    {label}
-                  </a>
+                  {href.startsWith("#") ? (
+                    <a
+                      href={`${BASE_PATH}/${href}`}
+                      className="text-sm font-normal text-gray-700 transition-colors hover:text-gray-900"
+                    >
+                      {label}
+                    </a>
+                  ) : (
+                    <Link
+                      href={href}
+                      className="text-sm font-normal text-gray-700 transition-colors hover:text-gray-900"
+                    >
+                      {label}
+                    </Link>
+                  )}
                 </li>
               ))}
             </ul>

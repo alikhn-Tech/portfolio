@@ -1,9 +1,15 @@
 "use client";
 
 import React from "react";
+import Link from "next/link";
 import { XMarkIcon, Bars3Icon } from "@heroicons/react/24/solid";
 import { Button, IconButton, Typography } from "@/components/ui";
+import { BASE_PATH } from "@/lib/site";
 
+/**
+ * `#hash` entries point at sections of the home page, so they are prefixed
+ * with the base path to work from `/blog` too. Anything else is a real route.
+ */
 const NAV_MENU = [
   { name: "Background", href: "#background" },
   { name: "Expertise", href: "#expertise" },
@@ -11,7 +17,39 @@ const NAV_MENU = [
   { name: "Projects", href: "#projects" },
   { name: "How I Work", href: "#how-i-work" },
   { name: "Resume", href: "#resume" },
+  { name: "Blog", href: "/blog" },
 ];
+
+function navHref(href: string) {
+  return href.startsWith("#") ? `${BASE_PATH}/${href}` : href;
+}
+
+const linkClass =
+  "font-medium text-gray-900 transition-colors hover:text-gray-600";
+
+function NavLink({
+  name,
+  href,
+  onClick,
+}: {
+  name: string;
+  href: string;
+  onClick?: () => void;
+}) {
+  if (href.startsWith("#")) {
+    return (
+      <a href={navHref(href)} onClick={onClick} className={linkClass}>
+        {name}
+      </a>
+    );
+  }
+
+  return (
+    <Link href={href} onClick={onClick} className={linkClass}>
+      {name}
+    </Link>
+  );
+}
 
 export function Navbar() {
   const [open, setOpen] = React.useState(false);
@@ -23,7 +61,7 @@ export function Navbar() {
       <div className="container mx-auto flex items-center justify-between px-8 py-3 lg:px-0">
         <Typography
           as="a"
-          href="#home"
+          href={navHref("#home")}
           color="blue-gray"
           className="text-lg font-bold"
         >
@@ -33,17 +71,12 @@ export function Navbar() {
           <ul className="ml-10 hidden items-center gap-8 lg:flex">
             {NAV_MENU.map(({ name, href }) => (
               <li key={name}>
-                <a
-                  href={href}
-                  className="font-medium text-gray-900 transition-colors hover:text-gray-600"
-                >
-                  {name}
-                </a>
+                <NavLink name={name} href={href} />
               </li>
             ))}
           </ul>
         </nav>
-        <a href="#contact" className="hidden lg:block">
+        <a href={navHref("#contact")} className="hidden lg:block">
           <Button color="gray">Contact</Button>
         </a>
         <IconButton
@@ -67,20 +100,14 @@ export function Navbar() {
             <ul className="flex flex-col gap-4 pt-4">
               {NAV_MENU.map(({ name, href }) => (
                 <li key={name}>
-                  <a
-                    href={href}
-                    onClick={closeMenu}
-                    className="font-medium text-gray-900"
-                  >
-                    {name}
-                  </a>
+                  <NavLink name={name} href={href} onClick={closeMenu} />
                 </li>
               ))}
               <li>
                 <a
-                  href="#contact"
+                  href={navHref("#contact")}
                   onClick={closeMenu}
-                  className="font-medium text-gray-900"
+                  className={linkClass}
                 >
                   Contact
                 </a>

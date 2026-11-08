@@ -21,7 +21,13 @@ console.log(`Building with NEXT_PUBLIC_BASE_PATH=/${basePath}`);
 execFileSync("npx", ["next", "build"], {
   stdio: "inherit",
   shell: process.platform === "win32",
-  env: { ...process.env, NEXT_PUBLIC_BASE_PATH: `/${basePath}` },
+  env: {
+    ...process.env,
+    NEXT_PUBLIC_BASE_PATH: `/${basePath}`,
+    // GitHub Pages has no server, so the blog must be prerendered. This
+    // requires at least one published post.
+    STATIC_EXPORT: "1",
+  },
 });
 
 // GitHub Pages runs Jekyll, which ignores directories starting with "_".

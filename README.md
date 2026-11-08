@@ -10,9 +10,10 @@ exported as a fully static site.
 
 | Layer | Choice |
 | --- | --- |
-| Framework | Next.js 15 (App Router, `output: "export"`) |
+| Framework | Next.js 15 (App Router, ISR for the blog) |
 | UI runtime | React 19 |
 | Styling | Tailwind CSS + a small in-repo component kit (`src/components/ui`) |
+| CMS | Sanity (project `utmnj4rd`) — content fetched at request time |
 | Icons | Heroicons |
 | Font | Roboto via `next/font` |
 | Hosting | Vercel (or any static host) |
@@ -99,22 +100,59 @@ Copy [.env.example](.env.example) to `.env` and adjust:
 | --- | --- |
 | `NEXT_PUBLIC_SITE_URL` | Canonical origin for metadata, sitemap and robots. Defaults to `http://localhost:3000`. |
 | `NEXT_PUBLIC_BASE_PATH` | Sub-path hosting only, e.g. `/my-repo` for GitHub Pages. Leave empty on Vercel. |
+| `NEXT_PUBLIC_SANITY_PROJECT_ID` | Defaults to `utmnj4rd`, so no setup is needed. |
+| `NEXT_PUBLIC_SANITY_DATASET` | Defaults to `production`. |
+| `SANITY_API_READ_TOKEN` | Only for a private dataset. Leave empty for public content. |
+
+## Blog (Sanity)
+
+Posts live in Sanity (project `utmnj4rd`, dataset `production`) and are written
+through Sanity Studio.
+
+**Writing a post.** The studio is in [studio/](studio) and is a separate app:
+
+```bash
+cd studio
+npm install
+npm run dev          # http://localhost:3333
+```
+
+Sign in, create a **Post**, fill in title, slug, excerpt, publish date, optional
+cover image and body, then hit **Publish**. `npm run deploy` inside `studio/`
+hosts it at `<project>.sanity.studio` so you can write from any device.
+
+The schema is [studio/schemas/post.ts](studio/schemas/post.ts) — its field names
+must stay in sync with the GROQ queries in [src/lib/blog.ts](src/lib/blog.ts).
+
+**Publishing.** The blog uses ISR with a 60-second window: a new or edited post
+appears on the live site within a minute of publishing, with no redeploy. The
+first request after that window regenerates the page.
+
+**Without content**, `/blog` renders an empty state and the site still builds and
+deploys normally — the dataset can be empty.
 
 ## Deployment
 
 ### Vercel
 
-Import the repository and deploy — no configuration needed. Set
-`NEXT_PUBLIC_SITE_URL` to the final domain once it is assigned.
+Import the repository and deploy — no configuration needed. The blog is served
+with ISR, so the project must build as a normal Next.js app (the default).
+
+Set `NEXT_PUBLIC_SITE_URL` to the final domain once it is assigned.
 
 ### GitHub Pages
 
-The site must be served from the repository sub-path, which the deploy script
-handles:
+GitHub Pages can only serve static files, so the deploy script switches the
+build to `output: "export"`:
 
 ```bash
 node scripts/gh-deploy.mjs
 ```
+
+⚠️ Static mode requires **at least one published post** — Next.js refuses to
+export a dynamic route that prerenders nothing, so `STATIC_EXPORT=1` fails on an
+empty dataset. GitHub Pages also loses on-demand revalidation: new posts need a
+redeploy.
 
 It builds with `NEXT_PUBLIC_BASE_PATH=/<repo>`, writes `out/.nojekyll` (GitHub
 Pages would otherwise strip `_next/`) and publishes `out/` to the `gh-pages`
@@ -124,12 +162,16 @@ the repository name differ.
 ## Project layout
 
 ```
-src/app/          page sections (one file per section)
-src/components/   navbar, footer, cards
-src/components/ui Tailwind primitives: Typography, Card, Button, IconButton
-src/lib/site.ts   personal details and deployment settings
-public/           favicon, OG image, portrait
-scripts/          brand asset generation, GitHub Pages deploy
+src/app/            page sections (one file per section)
+src/app/blog/       blog index and post pages
+src/components/     navbar, footer, cards
+src/components/ui   Tailwind primitives: Typography, Card, Button, IconButton
+src/lib/site.ts     personal details and deployment settings
+src/lib/sanity.ts   Sanity client and image URLs
+src/lib/blog.ts     GROQ queries and post types
+studio/             Sanity Studio (separate app, own package.json)
+public/             favicon, OG image, portrait, resume
+scripts/            brand asset generation, GitHub Pages deploy
 ```
 
 The Tailwind breakpoints in [tailwind.config.ts](tailwind.config.ts) are
