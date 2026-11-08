@@ -18,13 +18,20 @@ export function asset(path: string) {
   return `${BASE_PATH}/${path.replace(/^\/+/, "")}`;
 }
 
-const vercelUrl =
-  process.env.NEXT_PUBLIC_VERCEL_URL ?? process.env.VERCEL_URL;
+const vercelHost =
+  process.env.NEXT_PUBLIC_VERCEL_URL ??
+  process.env.VERCEL_PROJECT_PRODUCTION_URL ??
+  process.env.VERCEL_URL;
 
-/** Canonical origin, used for metadata, the sitemap and structured data. */
+/**
+ * Canonical origin, used for metadata, the sitemap and structured data.
+ * Prefers Vercel's stable production domain over the per-deployment URL so
+ * canonical links don't change on every deploy. Set NEXT_PUBLIC_SITE_URL to
+ * pin a custom domain.
+ */
 export const SITE_URL = trimTrailingSlash(
   process.env.NEXT_PUBLIC_SITE_URL ||
-    (vercelUrl ? `https://${vercelUrl}` : "http://localhost:3000"),
+    (vercelHost ? `https://${vercelHost}` : "http://localhost:3000"),
 );
 
 export const SITE = {
