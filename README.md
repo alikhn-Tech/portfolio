@@ -109,17 +109,21 @@ Copy [.env.example](.env.example) to `.env` and adjust:
 Posts live in Sanity (project `utmnj4rd`, dataset `production`) and are written
 through Sanity Studio.
 
-**Writing a post.** The studio is in [studio/](studio) and is a separate app:
+**Hosted Studio:** <https://ali-khan-portfolio.sanity.studio>
+
+Open that URL, sign in with the Sanity account that owns the project, pick the
+**production** dataset and the **Post** content type. Create a post (title, slug,
+excerpt, publish date, optional cover image, body) and press **Publish** — no
+commands, no deploy.
+
+The Studio source is in [studio/](studio). To run or redeploy it from a terminal:
 
 ```bash
 cd studio
 npm install
-npm run dev          # http://localhost:3333
+npm run dev      # local studio at http://localhost:3333
+npm run deploy   # republish https://ali-khan-portfolio.sanity.studio
 ```
-
-Sign in, create a **Post**, fill in title, slug, excerpt, publish date, optional
-cover image and body, then hit **Publish**. `npm run deploy` inside `studio/`
-hosts it at `<project>.sanity.studio` so you can write from any device.
 
 The schema is [studio/schemas/post.ts](studio/schemas/post.ts) — its field names
 must stay in sync with the GROQ queries in [src/lib/blog.ts](src/lib/blog.ts).
