@@ -7,6 +7,15 @@ import { PostBody } from "@/components/post-body";
 import { Typography } from "@/components/ui";
 import { formatPostDate, getPost, getPostSlugs } from "@/lib/blog";
 import { imageUrlFor } from "@/lib/sanity";
+import {
+  absoluteUrl,
+  breadcrumbList,
+  DEFAULT_OG_IMAGE,
+  PERSON_ID,
+  serializeJsonLd,
+  WEBSITE_ID,
+} from "@/lib/seo";
+import { SITE } from "@/lib/site";
 
 interface PageProps {
   params: Promise<{ slug: string }>;
@@ -20,6 +29,15 @@ export async function generateStaticParams() {
   return slugs.map((slug) => ({ slug }));
 }
 
+/** Excerpt, else a factual one-line fallback built from real post data. */
+function postDescription(post: { title: string; excerpt?: string | null }) {
+  const excerpt = post.excerpt?.trim();
+  if (excerpt) {
+    return excerpt;
+  }
+  return `${post.title} — an article by ${SITE.name}, ${SITE.role}.`;
+}
+
 export async function generateMetadata({
   params,
 }: PageProps): Promise<Metadata> {
@@ -27,23 +45,39 @@ export async function generateMetadata({
   const post = await getPost(slug);
 
   if (!post) {
-    return { title: "Post not found" };
+    return {
+      title: "Post not found",
+      robots: { index: false, follow: true },
+    };
   }
 
+  const description = postDescription(post);
+  const url = absoluteUrl(`/blog/${post.slug}`);
   const cover = imageUrlFor(post.coverImage, { width: 1200, height: 630 });
+  const image = cover
+    ? { url: cover, width: 1200, height: 630, alt: post.coverImage?.alt ?? post.title }
+    : { ...DEFAULT_OG_IMAGE };
 
   return {
     title: post.title,
-    description: post.excerpt ?? undefined,
-    alternates: { canonical: `/blog/${post.slug}` },
+    description,
+    alternates: { canonical: url },
     openGraph: {
       type: "article",
+      url,
+      siteName: SITE.name,
       title: post.title,
-      description: post.excerpt ?? undefined,
+      description,
       publishedTime: post.publishedAt,
-      ...(cover
-        ? { images: [{ url: cover, width: 1200, height: 630, alt: post.title }] }
-        : {}),
+      modifiedTime: post._updatedAt ?? post.publishedAt,
+      authors: [SITE.name],
+      images: [image],
+    },
+    twitter: {
+      card: "summary_large_image",
+      title: post.title,
+      description,
+      images: [image.url],
     },
   };
 }
@@ -57,6 +91,34 @@ export default async function PostPage({ params }: PageProps) {
   }
 
   const cover = imageUrlFor(post.coverImage, { width: 1600, height: 900 });
+  const url = absoluteUrl(`/blog/${post.slug}`);
+  const description = postDescription(post);
+  const socialImage =
+    imageUrlFor(post.coverImage, { width: 1200, height: 630 }) ??
+    absoluteUrl("/og-image.png");
+
+  const articleSchema = {
+    "@context": "https://schema.org",
+    "@type": "BlogPosting",
+    "@id": `${url}#article`,
+    headline: post.title,
+    description,
+    url,
+    mainEntityOfPage: { "@type": "WebPage", "@id": url },
+    datePublished: post.publishedAt,
+    dateModified: post._updatedAt ?? post.publishedAt,
+    author: { "@id": PERSON_ID },
+    publisher: { "@id": PERSON_ID },
+    image: [socialImage],
+    isPartOf: { "@id": WEBSITE_ID },
+    inLanguage: "en",
+  };
+
+  const breadcrumbs = breadcrumbList([
+    { name: "Home", path: "/" },
+    { name: "Blog", path: "/blog" },
+    { name: post.title, path: `/blog/${post.slug}` },
+  ]);
 
   return (
     <>
@@ -113,6 +175,14 @@ export default async function PostPage({ params }: PageProps) {
         </article>
       </main>
       <Footer />
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: serializeJsonLd(articleSchema) }}
+      />
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: serializeJsonLd(breadcrumbs) }}
+      />
     </>
   );
 }

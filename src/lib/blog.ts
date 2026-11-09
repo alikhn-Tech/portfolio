@@ -7,6 +7,8 @@ export interface PostSummary {
   slug: string;
   excerpt?: string | null;
   publishedAt: string;
+  /** Sanity's document update timestamp — used as `dateModified`. */
+  _updatedAt: string;
   coverImage?: SanityImage | null;
 }
 
@@ -17,6 +19,7 @@ export interface PostDetail extends PostSummary {
 /** Fields shared by the listing and the article page. */
 const POST_FIELDS = `
   _id,
+  _updatedAt,
   title,
   "slug": slug.current,
   excerpt,

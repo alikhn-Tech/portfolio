@@ -14,7 +14,12 @@ export function ProjectCard({ title, href }: ProjectCardProps) {
       className="h-full border-t border-gray-200 pt-6"
     >
       <CardBody className="flex h-full flex-col p-0">
-        <Typography variant="h5" color="blue-gray" className="mb-3 break-words">
+        <Typography
+          as="h3"
+          variant="h5"
+          color="blue-gray"
+          className="mb-3 break-words"
+        >
           {title}
         </Typography>
         <Typography className="mb-6 font-normal !text-gray-500">

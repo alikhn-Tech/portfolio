@@ -175,7 +175,7 @@ export function ContactForm() {
         <div className="flex flex-col gap-4 lg:col-span-2">
           <Card shadow={false} className="border border-gray-200">
             <CardBody className="p-6">
-              <Typography variant="h5" color="blue-gray" className="mb-4">
+              <Typography as="h3" variant="h5" color="blue-gray" className="mb-4">
                 Direct contact
               </Typography>
               <ul className="flex flex-col gap-3">

@@ -25,8 +25,11 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     // Publicly indexable static pages. `/` deliberately has no `lastModified`:
     // it is hand-written content, and a hard-coded or build-time date would be
     // a false freshness signal to crawlers.
+    //
+    // The URL has no trailing slash so it matches the canonical Next.js emits
+    // for the homepage (`trailingSlash` is false, i.e. the non-slash form).
     {
-      url: `${base}/`,
+      url: `${base}`,
       changeFrequency: "monthly",
       priority: 1,
     },

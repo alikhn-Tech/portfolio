@@ -1,6 +1,12 @@
 import "./globals.css";
 import type { Metadata, Viewport } from "next";
 import { Roboto } from "next/font/google";
+import {
+  DEFAULT_OG_IMAGE,
+  personNode,
+  serializeJsonLd,
+  websiteNode,
+} from "@/lib/seo";
 import { SITE, SITE_URL, asset } from "@/lib/site";
 
 const roboto = Roboto({
@@ -24,9 +30,9 @@ export const metadata: Metadata = {
   creator: SITE.name,
   publisher: SITE.name,
   keywords: [...SITE.keywords],
-  alternates: {
-    canonical: "/",
-  },
+  // No `alternates.canonical` here on purpose: a canonical set in the root
+  // layout is inherited by every route, which would point /blog, article
+  // pages and 404s at the homepage. Each page declares its own.
   robots: {
     index: true,
     follow: true,
@@ -44,14 +50,7 @@ export const metadata: Metadata = {
     siteName: SITE.name,
     title,
     description: SITE.description,
-    images: [
-      {
-        url: socialImage,
-        width: 1200,
-        height: 630,
-        alt: `${SITE.name} — ${SITE.role}`,
-      },
-    ],
+    images: [{ ...DEFAULT_OG_IMAGE }],
   },
   twitter: {
     card: "summary_large_image",
@@ -66,30 +65,14 @@ export const viewport: Viewport = {
   colorScheme: "light",
 };
 
-const personSchema = {
+/**
+ * One entity graph shared by every page: the site and the person who owns it.
+ * Pages reference these nodes by `@id` (see /blog and /blog/[slug]) instead of
+ * repeating the data, so there is a single source of truth.
+ */
+const siteGraph = {
   "@context": "https://schema.org",
-  "@type": "Person",
-  name: SITE.name,
-  jobTitle: SITE.role,
-  description: SITE.description,
-  url: SITE_URL,
-  email: `mailto:${SITE.email}`,
-  image: `${SITE_URL}${asset(SITE.photo)}`,
-  sameAs: [SITE.linkedinUrl],
-  worksFor: {
-    "@type": "Organization",
-    name: SITE.company,
-    url: SITE.companyUrl,
-  },
-  knowsAbout: [
-    "Web development",
-    "Next.js",
-    "React",
-    "AI automation",
-    "n8n",
-    "WhatsApp automation",
-    "Google Ads",
-  ],
+  "@graph": [websiteNode, personNode],
 };
 
 export default function RootLayout({
@@ -109,7 +92,7 @@ export default function RootLayout({
         {children}
         <script
           type="application/ld+json"
-          dangerouslySetInnerHTML={{ __html: JSON.stringify(personSchema) }}
+          dangerouslySetInnerHTML={{ __html: serializeJsonLd(siteGraph) }}
         />
       </body>
     </html>

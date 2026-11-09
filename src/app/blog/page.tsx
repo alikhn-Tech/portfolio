@@ -5,13 +5,39 @@ import { Footer, Navbar } from "@/components";
 import { Typography } from "@/components/ui";
 import { formatPostDate, getPosts } from "@/lib/blog";
 import { imageUrlFor } from "@/lib/sanity";
+import {
+  absoluteUrl,
+  breadcrumbList,
+  DEFAULT_OG_IMAGE,
+  serializeJsonLd,
+} from "@/lib/seo";
 import { SITE } from "@/lib/site";
 
 export const metadata: Metadata = {
   title: "Blog",
   description: `Notes on web development, AI automation and digital marketing from ${SITE.name}.`,
-  alternates: { canonical: "/blog" },
+  alternates: { canonical: absoluteUrl("/blog") },
+  openGraph: {
+    type: "website",
+    url: absoluteUrl("/blog"),
+    siteName: SITE.name,
+    title: `Blog | ${SITE.name}`,
+    description: `Notes on web development, AI automation and digital marketing from ${SITE.name}.`,
+    images: [{ ...DEFAULT_OG_IMAGE }],
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: `Blog | ${SITE.name}`,
+    description: `Notes on web development, AI automation and digital marketing from ${SITE.name}.`,
+    images: [DEFAULT_OG_IMAGE.url],
+  },
 };
+
+/** Home → Blog, matching the real URL hierarchy. */
+const blogBreadcrumbs = breadcrumbList([
+  { name: "Home", path: "/" },
+  { name: "Blog", path: "/blog" },
+]);
 
 /** Re-fetch from Sanity at most once a minute (ISR). */
 export const revalidate = 60;
@@ -49,7 +75,7 @@ export default async function BlogIndexPage() {
 
             {posts.length === 0 ? (
               <div className="rounded-xl border border-gray-200 px-8 py-16 text-center">
-                <Typography variant="h5" color="blue-gray" className="mb-2">
+                <Typography as="h2" variant="h5" color="blue-gray" className="mb-2">
                   No posts yet
                 </Typography>
                 <Typography className="font-normal !text-gray-500">
@@ -78,6 +104,7 @@ export default async function BlogIndexPage() {
                             {formatPostDate(post.publishedAt)}
                           </time>
                           <Typography
+                            as="h2"
                             variant="h3"
                             color="blue-gray"
                             className="mt-2 transition-colors group-hover:text-gray-600"
@@ -112,6 +139,10 @@ export default async function BlogIndexPage() {
         </section>
       </main>
       <Footer />
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: serializeJsonLd(blogBreadcrumbs) }}
+      />
     </>
   );
 }

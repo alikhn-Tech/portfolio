@@ -34,6 +34,7 @@ function Hero({ hasPhoto }: { hasPhoto: boolean }) {
       <div className="container mx-auto grid h-full min-h-[60vh] w-full grid-cols-1 items-center gap-10 lg:grid-cols-2">
         <div className="row-start-2 lg:row-auto">
           <Typography
+            as="p"
             variant="h6"
             color="blue-gray"
             className="mb-3 uppercase tracking-wide"
