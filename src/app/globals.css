@@ -1,3 +1,71 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+/*
+ * Technology badge press animation.
+ *
+ * Driven by a class toggled from `TechnologyBadgeEffect`, so the badges stay
+ * server-rendered. Timings stay inside 200–350ms and the overshoot is small.
+ */
+@keyframes tech-badge-press {
+  0% {
+    transform: scale(1);
+  }
+  32% {
+    transform: scale(0.94);
+  }
+  68% {
+    transform: scale(1.015);
+  }
+  100% {
+    transform: scale(1);
+  }
+}
+
+@keyframes tech-badge-glow {
+  0% {
+    box-shadow:
+      0 0 0 0 rgb(15 23 42 / 0),
+      0 0 0 0 rgb(15 23 42 / 0);
+  }
+  32% {
+    box-shadow:
+      0 0 0 2px rgb(15 23 42 / 0.05),
+      0 10px 22px -8px rgb(15 23 42 / 0.22);
+  }
+  100% {
+    box-shadow:
+      0 0 0 0 rgb(15 23 42 / 0),
+      0 0 0 0 rgb(15 23 42 / 0);
+  }
+}
+
+@keyframes tech-logo-pop {
+  0% {
+    transform: scale(1) rotate(0deg);
+  }
+  32% {
+    transform: scale(1.12) rotate(-6deg);
+  }
+  100% {
+    transform: scale(1) rotate(0deg);
+  }
+}
+
+.tech-badge-pressed {
+  animation:
+    tech-badge-press 320ms cubic-bezier(0.34, 1.56, 0.64, 1),
+    tech-badge-glow 320ms ease-out;
+}
+
+.tech-badge-pressed svg {
+  animation: tech-logo-pop 320ms cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .tech-badge-pressed,
+  .tech-badge-pressed svg {
+    animation: none;
+  }
+}

@@ -5,6 +5,7 @@ import {
   ChartBarIcon,
 } from "@heroicons/react/24/solid";
 import { SkillCard } from "@/components";
+import { TechnologyBadgeEffect } from "@/components/technology-badge-effect";
 import {
   ClaudeLogo,
   GoogleAdsLogo,
@@ -88,17 +89,22 @@ export function Skills() {
             Technologies and tools I work with.
           </Typography>
         </div>
-        <ul className="mx-auto flex max-w-4xl flex-wrap justify-center gap-3">
+        <ul
+          id="technology-badges"
+          className="mx-auto flex max-w-4xl flex-wrap justify-center gap-3"
+        >
           {TECHNOLOGIES.map(({ name, Logo }) => (
             <li
               key={name}
-              className="inline-flex items-center gap-2 rounded-full border border-gray-200 px-4 py-2 text-sm font-medium text-gray-800"
+              data-tech-badge
+              className="inline-flex cursor-pointer select-none items-center gap-2 rounded-full border border-gray-200 px-4 py-2 text-sm font-medium text-gray-800"
             >
               <Logo className="h-[18px] w-[18px] shrink-0" />
               <span>{name}</span>
             </li>
           ))}
         </ul>
+        <TechnologyBadgeEffect containerId="technology-badges" />
       </div>
     </section>
   );
