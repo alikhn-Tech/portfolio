@@ -13,8 +13,8 @@ import {
   ClipboardDocumentIcon,
   CheckIcon,
   EnvelopeIcon,
-  PhoneIcon,
 } from "@heroicons/react/24/solid";
+import { LinkedInLogo, WhatsAppLogo } from "@/components/technology-logos";
 import { SITE } from "@/lib/site";
 
 function WhatsAppIcon({ className }: { className?: string }) {
@@ -182,7 +182,7 @@ export function ContactForm() {
                 <li className="flex items-center justify-between gap-3">
                   <a
                     href={`mailto:${SITE.email}`}
-                    className="flex min-w-0 items-center gap-3 text-gray-700 transition-colors hover:text-gray-900"
+                    className="contact-link flex min-w-0 items-center gap-3 text-gray-700"
                   >
                     <EnvelopeIcon
                       aria-hidden="true"
@@ -213,9 +213,9 @@ export function ContactForm() {
                     href={SITE.whatsappUrl}
                     target="_blank"
                     rel="noreferrer"
-                    className="flex items-center gap-3 text-gray-700 transition-colors hover:text-gray-900"
+                    className="contact-link flex items-center gap-3 text-gray-700"
                   >
-                    <PhoneIcon aria-hidden="true" className="h-5 w-5" />
+                    <WhatsAppLogo className="h-5 w-5 shrink-0" />
                     <span className="text-sm font-medium">
                       WhatsApp {SITE.phoneDisplay}
                     </span>
@@ -226,12 +226,9 @@ export function ContactForm() {
                     href={SITE.linkedinUrl}
                     target="_blank"
                     rel="noreferrer"
-                    className="flex items-center gap-3 text-gray-700 transition-colors hover:text-gray-900"
+                    className="contact-link flex items-center gap-3 text-gray-700"
                   >
-                    <ArrowTopRightOnSquareIcon
-                      aria-hidden="true"
-                      className="h-5 w-5"
-                    />
+                    <LinkedInLogo className="h-5 w-5 shrink-0" />
                     <span className="text-sm font-medium">LinkedIn</span>
                   </a>
                 </li>
@@ -240,7 +237,7 @@ export function ContactForm() {
                     href={SITE.companyUrl}
                     target="_blank"
                     rel="noreferrer"
-                    className="flex items-center gap-3 text-gray-700 transition-colors hover:text-gray-900"
+                    className="contact-link flex items-center gap-3 text-gray-700"
                   >
                     <ArrowTopRightOnSquareIcon
                       aria-hidden="true"

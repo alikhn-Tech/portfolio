@@ -2,16 +2,16 @@
 
 import { Typography } from "@/components/ui";
 import {
-  ChatBubbleLeftRightIcon,
+  CheckCircleIcon,
   ClipboardDocumentListIcon,
-  WrenchScrewdriverIcon,
-  MagnifyingGlassIcon,
+  CodeBracketIcon,
+  LightBulbIcon,
 } from "@heroicons/react/24/solid";
 import { SkillCard } from "@/components";
 
 const STEPS = [
   {
-    icon: ChatBubbleLeftRightIcon,
+    icon: LightBulbIcon,
     title: "Understand",
     children:
       "Start by understanding the business need, users, and goals for the work.",
@@ -23,13 +23,13 @@ const STEPS = [
       "Outline a practical approach and identify the tools and requirements involved.",
   },
   {
-    icon: WrenchScrewdriverIcon,
+    icon: CodeBracketIcon,
     title: "Build",
     children:
       "Develop and implement the website, automation, or advertising work.",
   },
   {
-    icon: MagnifyingGlassIcon,
+    icon: CheckCircleIcon,
     title: "Review",
     children:
       "Test the implementation, review it against the requirements, and make improvements.",

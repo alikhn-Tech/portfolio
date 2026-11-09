@@ -1,9 +1,4 @@
 import { Typography } from "@/components/ui";
-import {
-  RectangleGroupIcon,
-  FingerPrintIcon,
-  ChartBarIcon,
-} from "@heroicons/react/24/solid";
 import { SkillCard } from "@/components";
 import { TechnologyBadgeEffect } from "@/components/technology-badge-effect";
 import {
@@ -19,21 +14,22 @@ import {
   WhatsAppLogo,
 } from "@/components/technology-logos";
 
+/** Service cards use the official brand marks rather than generic icons. */
 const SKILLS = [
   {
-    icon: RectangleGroupIcon,
+    icon: NextjsLogo,
     title: "Web Development",
     children:
       "Developing and improving websites and front-end experiences for business needs.",
   },
   {
-    icon: FingerPrintIcon,
+    icon: N8nLogo,
     title: "AI Automation",
     children:
       "Working with AI calling agents, WhatsApp agents, and workflow automation.",
   },
   {
-    icon: ChartBarIcon,
+    icon: GoogleAdsLogo,
     title: "Google Ads",
     children:
       "Managing digital advertising work, including Google Ads for a driving school in Birmingham, UK.",
@@ -77,7 +73,7 @@ export function Skills() {
       </div>
       <div className="container mx-auto grid grid-cols-1 gap-y-10 md:grid-cols-3">
         {SKILLS.map((props, idx) => (
-          <SkillCard key={idx} {...props} />
+          <SkillCard key={idx} variant="service" {...props} />
         ))}
       </div>
       <div id="technology" className="container mx-auto scroll-mt-24 pt-20">
