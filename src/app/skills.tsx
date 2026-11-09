@@ -97,7 +97,7 @@ export function Skills() {
             <li
               key={name}
               data-tech-badge
-              className="inline-flex cursor-pointer select-none items-center gap-2 rounded-full border border-gray-200 px-4 py-2 text-sm font-medium text-gray-800"
+              className="tech-badge inline-flex cursor-pointer select-none items-center gap-2 rounded-full border border-gray-200 px-4 py-2 text-sm font-medium text-gray-800"
             >
               <Logo className="h-[18px] w-[18px] shrink-0" />
               <span>{name}</span>

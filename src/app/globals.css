@@ -3,53 +3,77 @@
 @tailwind utilities;
 
 /*
- * Technology badge press animation.
+ * Technology badge motion.
  *
- * Driven by a class toggled from `TechnologyBadgeEffect`, so the badges stay
- * server-rendered. Timings stay inside 200–350ms and the overshoot is small.
+ * Two independent effects share the same element:
+ *   - hover  → CSS transition on `translate` / `scale` / shadow / border
+ *   - press  → keyframes toggled by `TechnologyBadgeEffect` (320ms)
+ *
+ * They compose because `translate` and `scale` are separate properties: the
+ * press keyframes animate `scale` only, so the hover lift survives a press and
+ * the press starts from the hovered size instead of snapping back to 1.
+ *
+ * Press keyframes deliberately omit 0% / 100%: a missing endpoint takes the
+ * element's current computed value, which is exactly what makes the animation
+ * continuous whether or not the badge is hovered.
  */
-@keyframes tech-badge-press {
-  0% {
-    transform: scale(1);
+
+/* ---------- hover ---------- */
+
+.tech-badge {
+  transition:
+    translate 220ms cubic-bezier(0.2, 0.7, 0.2, 1),
+    scale 220ms cubic-bezier(0.2, 0.7, 0.2, 1),
+    box-shadow 220ms ease,
+    border-color 220ms ease,
+    background-color 220ms ease;
+}
+
+.tech-badge svg {
+  transition:
+    scale 220ms cubic-bezier(0.2, 0.7, 0.2, 1),
+    rotate 220ms cubic-bezier(0.2, 0.7, 0.2, 1);
+}
+
+@media (hover: hover) and (pointer: fine) {
+  .tech-badge:hover {
+    translate: 0 -4px;
+    scale: 1.03;
+    border-color: rgb(15 23 42 / 0.18);
+    background-color: rgb(249 250 251);
+    box-shadow:
+      0 10px 20px -12px rgb(15 23 42 / 0.35),
+      0 2px 6px -3px rgb(15 23 42 / 0.12);
   }
+
+  .tech-badge:hover svg {
+    scale: 1.08;
+  }
+}
+
+/* ---------- press ---------- */
+
+@keyframes tech-badge-press {
   32% {
-    transform: scale(0.94);
+    scale: 0.94;
   }
   68% {
-    transform: scale(1.015);
-  }
-  100% {
-    transform: scale(1);
+    scale: 1.015;
   }
 }
 
 @keyframes tech-badge-glow {
-  0% {
-    box-shadow:
-      0 0 0 0 rgb(15 23 42 / 0),
-      0 0 0 0 rgb(15 23 42 / 0);
-  }
   32% {
     box-shadow:
       0 0 0 2px rgb(15 23 42 / 0.05),
       0 10px 22px -8px rgb(15 23 42 / 0.22);
   }
-  100% {
-    box-shadow:
-      0 0 0 0 rgb(15 23 42 / 0),
-      0 0 0 0 rgb(15 23 42 / 0);
-  }
 }
 
 @keyframes tech-logo-pop {
-  0% {
-    transform: scale(1) rotate(0deg);
-  }
   32% {
-    transform: scale(1.12) rotate(-6deg);
-  }
-  100% {
-    transform: scale(1) rotate(0deg);
+    scale: 1.12;
+    rotate: -6deg;
   }
 }
 
@@ -63,7 +87,20 @@
   animation: tech-logo-pop 320ms cubic-bezier(0.34, 1.56, 0.64, 1);
 }
 
+/* ---------- reduced motion ---------- */
+
 @media (prefers-reduced-motion: reduce) {
+  .tech-badge,
+  .tech-badge svg {
+    transition: none;
+  }
+
+  .tech-badge:hover,
+  .tech-badge:hover svg {
+    translate: 0;
+    scale: 1;
+  }
+
   .tech-badge-pressed,
   .tech-badge-pressed svg {
     animation: none;
