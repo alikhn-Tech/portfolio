@@ -35,10 +35,17 @@ export async function getPosts(): Promise<PostSummary[]> {
 
   try {
     const posts = await sanityClient.fetch<PostSummary[]>(
-      `*[_type == "post" && defined(slug.current)] | order(publishedAt desc) { ${POST_FIELDS} }`,
+      // `perspective: "published"` already hides drafts from the API; the
+      // `_id` filter is defence in depth for tokens that can read drafts.
+      `*[
+        _type == "post"
+        && !(_id in path("drafts.**"))
+        && defined(slug.current)
+        && defined(publishedAt)
+      ] | order(publishedAt desc) { ${POST_FIELDS} }`,
     );
 
-    return posts.filter((post) => Boolean(post.slug));
+    return posts.filter((post) => Boolean(post.slug?.trim()));
   } catch (error) {
     // A Sanity outage should not break the build; log and ship without posts.
     console.warn("[blog] Could not reach Sanity, building without posts.", error);

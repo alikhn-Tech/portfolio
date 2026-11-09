@@ -27,11 +27,13 @@ const vercelHost =
  * Canonical origin, used for metadata, the sitemap and structured data.
  * Prefers Vercel's stable production domain over the per-deployment URL so
  * canonical links don't change on every deploy. Set NEXT_PUBLIC_SITE_URL to
- * pin a custom domain.
+ * pin a custom domain (it wins over everything, including on Vercel).
  */
 export const SITE_URL = trimTrailingSlash(
   process.env.NEXT_PUBLIC_SITE_URL ||
-    (vercelHost ? `https://${vercelHost}` : "http://localhost:3000"),
+    (vercelHost
+      ? `https://${vercelHost}`
+      : "https://alikhan-tech.vercel.app"),
 );
 
 export const SITE = {
