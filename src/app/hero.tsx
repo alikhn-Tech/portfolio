@@ -37,27 +37,27 @@ function Hero({ hasPhoto }: { hasPhoto: boolean }) {
             as="p"
             variant="h6"
             color="blue-gray"
-            className="mb-3 uppercase tracking-wide"
+            className="hero-eyebrow mb-3 uppercase tracking-wide"
           >
             {SITE.name}
           </Typography>
           <Typography
             variant="h1"
             color="blue-gray"
-            className="mb-4 text-3xl !leading-tight lg:text-5xl"
+            className="hero-title mb-4 text-3xl !leading-tight lg:text-5xl"
           >
             {SITE.role}
           </Typography>
           <Typography
             variant="lead"
-            className="mb-4 !text-gray-500 md:pr-16 xl:pr-28"
+            className="hero-lead mb-4 !text-gray-500 md:pr-16 xl:pr-28"
           >
             I&apos;m {SITE.name}, a {SITE.role} and Co-Founder at {SITE.company}.
             My work spans web development, AI automation, and Google Ads, where I
             combine software development and digital technologies to solve real
             business challenges.
           </Typography>
-          <div className="mt-8 flex flex-col gap-4 sm:flex-row">
+          <div className="hero-actions mt-8 flex flex-col gap-4 sm:flex-row">
             <a href="#projects">
               <Button color="gray">View my work</Button>
             </a>
@@ -68,7 +68,7 @@ function Hero({ hasPhoto }: { hasPhoto: boolean }) {
             </a>
           </div>
         </div>
-        <div className="relative h-[28rem] w-full overflow-hidden rounded-xl bg-gray-100 sm:h-[36rem]">
+        <div className="hero-portrait relative h-[28rem] w-full overflow-hidden rounded-xl bg-gray-100 sm:h-[36rem]">
           {showPhoto ? (
             <Image
               src={asset(SITE.photo)}

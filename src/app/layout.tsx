@@ -1,6 +1,7 @@
 import "./globals.css";
 import type { Metadata, Viewport } from "next";
 import { Roboto } from "next/font/google";
+import { ScrollReveal } from "@/components/scroll-reveal";
 import {
   DEFAULT_OG_IMAGE,
   personNode,
@@ -90,6 +91,7 @@ export default function RootLayout({
           Skip to content
         </a>
         {children}
+        <ScrollReveal />
         <script
           type="application/ld+json"
           dangerouslySetInnerHTML={{ __html: serializeJsonLd(siteGraph) }}

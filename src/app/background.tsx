@@ -4,7 +4,7 @@ import { Typography } from "@/components/ui";
 
 export default function Background() {
   return (
-    <section id="background" className="scroll-mt-24 px-8 py-24">
+    <section data-reveal id="background" className="scroll-mt-24 px-8 py-24">
       <div className="container mx-auto max-w-4xl text-center">
         <Typography color="blue-gray" className="mb-2 font-bold uppercase">
           About

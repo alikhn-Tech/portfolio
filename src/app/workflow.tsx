@@ -38,7 +38,7 @@ const STEPS = [
 
 export default function Workflow() {
   return (
-    <section id="how-i-work" className="scroll-mt-24 px-8 py-20">
+    <section data-reveal id="how-i-work" className="scroll-mt-24 px-8 py-20">
       <div className="container mx-auto mb-16 text-center">
         <Typography color="blue-gray" className="mb-2 font-bold uppercase">
           Approach

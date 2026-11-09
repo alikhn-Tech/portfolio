@@ -25,7 +25,7 @@ function navHref(href: string) {
 }
 
 const linkClass =
-  "font-medium text-gray-900 transition-colors hover:text-gray-600";
+  "nav-link font-medium text-gray-900 transition-colors hover:text-gray-600";
 
 function NavLink({
   name,
@@ -95,7 +95,7 @@ export function Navbar() {
         </IconButton>
       </div>
       {open && (
-        <div className="container mx-auto border-t border-gray-200 px-8 pb-6 lg:px-0">
+        <div className="nav-panel container mx-auto border-t border-gray-200 px-8 pb-6 lg:px-0">
           <nav aria-label="Mobile navigation">
             <ul className="flex flex-col gap-4 pt-4">
               {NAV_MENU.map(({ name, href }) => (

@@ -77,7 +77,7 @@ export function ContactForm() {
   };
 
   return (
-    <section id="contact" className="scroll-mt-24 px-8 py-16">
+    <section data-reveal id="contact" className="scroll-mt-24 px-8 py-16">
       <div className="container mx-auto mb-12 text-center">
         <Typography variant="h2" color="blue-gray" className="mb-4">
           Get in Touch
@@ -109,7 +109,7 @@ export function ContactForm() {
                   autoComplete="name"
                   value={name}
                   onChange={(event) => setName(event.target.value)}
-                  className="w-full rounded-md border border-gray-300 px-3 py-2 text-gray-900 outline-none transition focus:border-gray-900 focus:ring-1 focus:ring-gray-900"
+                  className="w-full rounded-md border border-gray-300 px-3 py-2 text-gray-900 outline-none transition-[border-color,box-shadow] duration-200 hover:border-gray-400 focus:border-gray-900 focus:ring-1 focus:ring-gray-900"
                 />
               </div>
               <div className="flex flex-col gap-2">
@@ -127,7 +127,7 @@ export function ContactForm() {
                   autoComplete="email"
                   value={email}
                   onChange={(event) => setEmail(event.target.value)}
-                  className="w-full rounded-md border border-gray-300 px-3 py-2 text-gray-900 outline-none transition focus:border-gray-900 focus:ring-1 focus:ring-gray-900"
+                  className="w-full rounded-md border border-gray-300 px-3 py-2 text-gray-900 outline-none transition-[border-color,box-shadow] duration-200 hover:border-gray-400 focus:border-gray-900 focus:ring-1 focus:ring-gray-900"
                 />
               </div>
               <div className="flex flex-col gap-2">
@@ -144,7 +144,7 @@ export function ContactForm() {
                   rows={5}
                   value={message}
                   onChange={(event) => setMessage(event.target.value)}
-                  className="w-full resize-y rounded-md border border-gray-300 px-3 py-2 text-gray-900 outline-none transition focus:border-gray-900 focus:ring-1 focus:ring-gray-900"
+                  className="w-full resize-y rounded-md border border-gray-300 px-3 py-2 text-gray-900 outline-none transition-[border-color,box-shadow] duration-200 hover:border-gray-400 focus:border-gray-900 focus:ring-1 focus:ring-gray-900"
                 />
               </div>
               <Button type="submit" color="gray" className="w-full sm:w-auto">
@@ -155,7 +155,7 @@ export function ContactForm() {
                 Opens WhatsApp with your message ready to send.
               </Typography>
               {handoffUrl && (
-                <Typography className="text-xs font-normal !text-gray-500">
+                <Typography className="fade-in text-xs font-normal !text-gray-500">
                   WhatsApp didn&apos;t open?{" "}
                   <a
                     href={handoffUrl}

@@ -31,14 +31,14 @@ export function Footer() {
                   {href.startsWith("#") ? (
                     <a
                       href={`${BASE_PATH}/${href}`}
-                      className="text-sm font-normal text-gray-700 transition-colors hover:text-gray-900"
+                      className="footer-link text-sm font-normal text-gray-700 hover:text-gray-900"
                     >
                       {label}
                     </a>
                   ) : (
                     <Link
                       href={href}
-                      className="text-sm font-normal text-gray-700 transition-colors hover:text-gray-900"
+                      className="footer-link text-sm font-normal text-gray-700 hover:text-gray-900"
                     >
                       {label}
                     </Link>

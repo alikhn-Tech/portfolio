@@ -3,22 +3,216 @@
 @tailwind utilities;
 
 /*
- * Technology badge motion.
+ * Motion system.
  *
- * Two independent effects share the same element:
- *   - hover  → CSS transition on `translate` / `scale` / shadow / border
- *   - press  → keyframes toggled by `TechnologyBadgeEffect` (320ms)
- *
- * They compose because `translate` and `scale` are separate properties: the
- * press keyframes animate `scale` only, so the hover lift survives a press and
- * the press starts from the hovered size instead of snapping back to 1.
- *
- * Press keyframes deliberately omit 0% / 100%: a missing endpoint takes the
- * element's current computed value, which is exactly what makes the animation
- * continuous whether or not the badge is hovered.
+ * One place for timings and easings so interactions stay consistent:
+ *   link 170ms · button 200ms · card 240ms · reveal 520ms
+ * Everything is CSS-driven; the only JavaScript is the scroll observer.
  */
+:root {
+  --ease-out: cubic-bezier(0.22, 1, 0.36, 1);
+  --ease-spring: cubic-bezier(0.34, 1.56, 0.64, 1);
+  --dur-link: 170ms;
+  --dur-button: 200ms;
+  --dur-card: 240ms;
+  --dur-reveal: 520ms;
+  --focus-ring: rgb(15 23 42 / 0.55);
+}
 
-/* ---------- hover ---------- */
+/* ---------- keyboard focus ---------- */
+
+:where(a, button, summary, [tabindex]:not([tabindex="-1"])):focus-visible {
+  outline: 2px solid var(--focus-ring);
+  outline-offset: 2px;
+  border-radius: 4px;
+}
+
+/* ---------- navigation ---------- */
+
+.nav-link {
+  position: relative;
+  transition: color var(--dur-link) var(--ease-out);
+}
+
+.nav-link::after {
+  content: "";
+  position: absolute;
+  inset-inline: 0;
+  bottom: -5px;
+  height: 1px;
+  background-color: currentColor;
+  transform: scaleX(0);
+  transform-origin: left;
+  transition: transform var(--dur-link) var(--ease-out);
+}
+
+.nav-link:hover::after,
+.nav-link:focus-visible::after {
+  transform: scaleX(1);
+}
+
+@keyframes nav-panel-in {
+  from {
+    opacity: 0;
+    transform: translateY(-6px);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+.nav-panel {
+  animation: nav-panel-in 180ms var(--ease-out) both;
+}
+
+/* ---------- buttons ---------- */
+
+.btn-motion {
+  transition:
+    transform var(--dur-button) var(--ease-out),
+    box-shadow var(--dur-button) var(--ease-out),
+    background-color var(--dur-button) var(--ease-out),
+    border-color var(--dur-button) var(--ease-out),
+    color var(--dur-button) var(--ease-out),
+    opacity var(--dur-button) var(--ease-out);
+}
+
+@media (hover: hover) and (pointer: fine) {
+  .btn-motion:hover {
+    transform: translateY(-2px);
+  }
+}
+
+.btn-motion:active {
+  transform: translateY(0) scale(0.985);
+  transition-duration: 90ms;
+}
+
+.btn-motion:disabled {
+  transform: none;
+}
+
+/* ---------- cards ---------- */
+
+.card-motion {
+  transition:
+    transform var(--dur-card) var(--ease-out),
+    box-shadow var(--dur-card) var(--ease-out),
+    border-color var(--dur-card) var(--ease-out);
+}
+
+@media (hover: hover) and (pointer: fine) {
+  .card-motion:hover {
+    transform: translateY(-2px);
+  }
+}
+
+/* ---------- hero entrance ---------- */
+
+@keyframes hero-rise {
+  from {
+    transform: translateY(10px);
+  }
+  to {
+    transform: none;
+  }
+}
+
+@keyframes hero-fade {
+  from {
+    opacity: 0;
+    transform: translateY(8px);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+/*
+ * The h1 and the portrait deliberately avoid an opacity fade: both are
+ * Largest Contentful Paint candidates, and fading them from 0 would push LCP
+ * back by the length of the animation.
+ */
+.hero-eyebrow {
+  animation: hero-fade 460ms var(--ease-out) both;
+}
+
+.hero-title {
+  animation: hero-rise 560ms var(--ease-out) both;
+}
+
+.hero-lead {
+  animation: hero-fade 560ms 90ms var(--ease-out) both;
+}
+
+.hero-actions {
+  animation: hero-fade 560ms 170ms var(--ease-out) both;
+}
+
+.hero-portrait {
+  animation: hero-settle 700ms 60ms var(--ease-out) both;
+}
+
+@keyframes hero-settle {
+  from {
+    transform: scale(1.02);
+  }
+  to {
+    transform: none;
+  }
+}
+
+/* ---------- scroll reveal ---------- */
+
+.reveal-ready [data-reveal] {
+  opacity: 0;
+  transform: translateY(14px);
+  transition:
+    opacity var(--dur-reveal) var(--ease-out),
+    transform var(--dur-reveal) var(--ease-out);
+}
+
+.reveal-ready [data-reveal].is-revealed {
+  opacity: 1;
+  transform: none;
+}
+
+/* ---------- footer ---------- */
+
+.footer-link {
+  background-image: linear-gradient(currentColor, currentColor);
+  background-repeat: no-repeat;
+  background-position: 0 100%;
+  background-size: 0% 1px;
+  transition:
+    background-size var(--dur-link) var(--ease-out),
+    color var(--dur-link) var(--ease-out);
+}
+
+.footer-link:hover,
+.footer-link:focus-visible {
+  background-size: 100% 1px;
+}
+
+@keyframes fade-in {
+  from {
+    opacity: 0;
+    transform: translateY(-4px);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+.fade-in {
+  animation: fade-in 220ms var(--ease-out) both;
+}
+
+/* ---------- technology badges: hover ---------- */
+/* Press + hover rules below are the existing implementation, unchanged. */
 
 .tech-badge {
   transition:
@@ -51,7 +245,7 @@
   }
 }
 
-/* ---------- press ---------- */
+/* ---------- technology badges: press ---------- */
 
 @keyframes tech-badge-press {
   32% {
@@ -79,17 +273,56 @@
 
 .tech-badge-pressed {
   animation:
-    tech-badge-press 320ms cubic-bezier(0.34, 1.56, 0.64, 1),
+    tech-badge-press 320ms var(--ease-spring),
     tech-badge-glow 320ms ease-out;
 }
 
 .tech-badge-pressed svg {
-  animation: tech-logo-pop 320ms cubic-bezier(0.34, 1.56, 0.64, 1);
+  animation: tech-logo-pop 320ms var(--ease-spring);
 }
 
 /* ---------- reduced motion ---------- */
 
 @media (prefers-reduced-motion: reduce) {
+  .hero-eyebrow,
+  .hero-title,
+  .hero-lead,
+  .hero-actions,
+  .hero-portrait,
+  .nav-panel,
+  .fade-in {
+    animation: none;
+  }
+
+  .btn-motion,
+  .card-motion,
+  .nav-link,
+  .nav-link::after,
+  .footer-link {
+    transition: none;
+  }
+
+  .btn-motion:hover,
+  .btn-motion:active,
+  .card-motion:hover {
+    transform: none;
+  }
+
+  .nav-link::after {
+    transform: none;
+    opacity: 0;
+  }
+
+  .footer-link:hover {
+    background-size: 0% 1px;
+  }
+
+  .reveal-ready [data-reveal] {
+    opacity: 1;
+    transform: none;
+    transition: none;
+  }
+
   .tech-badge,
   .tech-badge svg {
     transition: none;

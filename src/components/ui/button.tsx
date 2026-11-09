@@ -54,7 +54,7 @@ export function buttonClassName({
     variant === "filled" ? FILLED[color] : variant === "outlined" ? OUTLINED[color] : TEXT[color];
 
   return cn(
-    "relative inline-flex select-none items-center justify-center gap-2 rounded-lg text-center align-middle font-sans font-medium uppercase transition-all disabled:pointer-events-none disabled:opacity-50",
+    "btn-motion relative inline-flex select-none items-center justify-center gap-2 rounded-lg text-center align-middle font-sans font-medium uppercase disabled:pointer-events-none disabled:opacity-50",
     SIZES[size],
     palette,
     fullWidth && "w-full",

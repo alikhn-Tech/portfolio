@@ -11,7 +11,7 @@ export function ProjectCard({ title, href }: ProjectCardProps) {
     <Card
       color="transparent"
       shadow={false}
-      className="h-full border-t border-gray-200 pt-6"
+      className="card-motion group h-full border-t border-gray-200 pt-6 hover:border-gray-400"
     >
       <CardBody className="flex h-full flex-col p-0">
         <Typography
@@ -32,7 +32,10 @@ export function ProjectCard({ title, href }: ProjectCardProps) {
           className="mt-auto inline-flex items-center gap-2 font-medium text-gray-900 transition-colors hover:text-gray-600"
         >
           Visit website
-          <ArrowTopRightOnSquareIcon aria-hidden="true" className="h-4 w-4" />
+          <ArrowTopRightOnSquareIcon
+            aria-hidden="true"
+            className="h-4 w-4 transition-transform duration-200 ease-out group-hover:-translate-y-0.5 group-hover:translate-x-0.5"
+          />
         </a>
       </CardBody>
     </Card>

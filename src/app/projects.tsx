@@ -24,7 +24,7 @@ const PROJECTS = [
 
 export function Projects() {
   return (
-    <section id="projects" className="scroll-mt-24 px-8 py-28">
+    <section data-reveal id="projects" className="scroll-mt-24 px-8 py-28">
       <div className="container mx-auto mb-20 text-center">
         <Typography variant="h2" color="blue-gray" className="mb-4">
           Selected Website Projects
