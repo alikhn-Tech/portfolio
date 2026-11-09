@@ -1,5 +1,17 @@
 {
   "$schema": "https://openapi.vercel.sh/vercel.json",
+  "redirects": [
+    {
+      "source": "/ali-khan-resume.pdf",
+      "destination": "/Ali_Khan_Resume.pdf",
+      "permanent": true
+    },
+    {
+      "source": "/Ali-Khan-Resume.pdf",
+      "destination": "/Ali_Khan_Resume.pdf",
+      "permanent": true
+    }
+  ],
   "headers": [
     {
       "source": "/Ali_Khan_Resume.pdf",
