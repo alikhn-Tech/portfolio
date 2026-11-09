@@ -48,9 +48,9 @@ export const SITE = {
   /** File inside `public/` used for the hero portrait. */
   photo: "ali-khan.jpg",
   /** File inside `public/` offered by the "Download Resume" button. */
-  resume: "ali-khan-resume.pdf",
+  resume: "Ali_Khan_Resume.pdf",
   /** Filename the browser saves the resume as. */
-  resumeFilename: "Ali-Khan-Resume.pdf",
+  resumeFilename: "Ali_Khan_Resume.pdf",
   description:
     "Ali Khan is a Junior Software Engineer and Co-Founder at Webistic Marketing Solutions, working across web development, AI automation, and Google Ads.",
   keywords: [

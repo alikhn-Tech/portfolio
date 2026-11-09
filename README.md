@@ -69,10 +69,15 @@ takes the hero image from 2.7 MB to ~146 KB.
 
 ### Resume PDF
 
-Put your CV at `public/ali-khan-resume.pdf`. The **Download Resume** button in
+Put your CV at `public/Ali_Khan_Resume.pdf`. The **Download Resume** button in
 the resume section appears automatically on the next build and saves the file as
-`Ali-Khan-Resume.pdf`. While the PDF is missing the button is omitted entirely,
+`Ali_Khan_Resume.pdf`. While the PDF is missing the button is omitted entirely,
 so the site never ships a link to a 404.
+
+The filename is enforced twice: the anchor carries `download="Ali_Khan_Resume.pdf"`
+and [vercel.json](vercel.json) sends `Content-Disposition: attachment;
+filename="Ali_Khan_Resume.pdf"`, so the name survives browsers that prefer the
+response header over the HTML attribute.
 
 ### Brand assets
 
