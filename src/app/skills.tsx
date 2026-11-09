@@ -1,5 +1,3 @@
-"use client";
-
 import { Typography } from "@/components/ui";
 import {
   RectangleGroupIcon,
@@ -7,6 +5,18 @@ import {
   ChartBarIcon,
 } from "@heroicons/react/24/solid";
 import { SkillCard } from "@/components";
+import {
+  ClaudeLogo,
+  GoogleAdsLogo,
+  GoogleAnalyticsLogo,
+  JavaScriptLogo,
+  N8nLogo,
+  NextjsLogo,
+  OpenAiLogo,
+  ReactLogo,
+  TailwindLogo,
+  WhatsAppLogo,
+} from "@/components/technology-logos";
 
 const SKILLS = [
   {
@@ -29,17 +39,21 @@ const SKILLS = [
   },
 ];
 
+/**
+ * Logo comes from `technology-logos.tsx` (inlined SVG, no extra requests).
+ * Names are unchanged from the original list.
+ */
 const TECHNOLOGIES = [
-  "Next.js",
-  "React",
-  "JavaScript",
-  "Tailwind CSS",
-  "n8n",
-  "OpenAI",
-  "Claude",
-  "WhatsApp automation",
-  "Google Ads",
-  "Google Analytics 4",
+  { name: "Next.js", Logo: NextjsLogo },
+  { name: "React", Logo: ReactLogo },
+  { name: "JavaScript", Logo: JavaScriptLogo },
+  { name: "Tailwind CSS", Logo: TailwindLogo },
+  { name: "n8n", Logo: N8nLogo },
+  { name: "OpenAI", Logo: OpenAiLogo },
+  { name: "Claude", Logo: ClaudeLogo },
+  { name: "WhatsApp automation", Logo: WhatsAppLogo },
+  { name: "Google Ads", Logo: GoogleAdsLogo },
+  { name: "Google Analytics 4", Logo: GoogleAnalyticsLogo },
 ];
 
 export function Skills() {
@@ -75,12 +89,13 @@ export function Skills() {
           </Typography>
         </div>
         <ul className="mx-auto flex max-w-4xl flex-wrap justify-center gap-3">
-          {TECHNOLOGIES.map((technology) => (
+          {TECHNOLOGIES.map(({ name, Logo }) => (
             <li
-              key={technology}
-              className="rounded-full border border-gray-200 px-4 py-2 text-sm font-medium text-gray-800"
+              key={name}
+              className="inline-flex items-center gap-2 rounded-full border border-gray-200 px-4 py-2 text-sm font-medium text-gray-800"
             >
-              {technology}
+              <Logo className="h-[18px] w-[18px] shrink-0" />
+              <span>{name}</span>
             </li>
           ))}
         </ul>
