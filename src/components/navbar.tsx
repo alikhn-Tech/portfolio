@@ -2,6 +2,7 @@
 
 import React from "react";
 import Link from "next/link";
+import { usePathname } from "next/navigation";
 import { XMarkIcon, Bars3Icon } from "@heroicons/react/24/solid";
 import { Button, IconButton, Typography } from "@/components/ui";
 import { BASE_PATH } from "@/lib/site";
@@ -20,32 +21,99 @@ const NAV_MENU = [
   { name: "Blog", href: "/blog" },
 ];
 
+const SECTION_HREFS = NAV_MENU.filter((item) => item.href.startsWith("#"));
+
+/**
+ * Sections to watch. `#contact` has no nav item (it is the CTA button), but it
+ * still needs observing so the last link stops looking active once the visitor
+ * reaches it.
+ */
+const OBSERVED_SECTION_IDS = [
+  ...SECTION_HREFS.map(({ href }) => href.slice(1)),
+  "contact",
+];
+
 function navHref(href: string) {
   return href.startsWith("#") ? `${BASE_PATH}/${href}` : href;
 }
 
-const linkClass =
-  "nav-link font-medium text-gray-900 transition-colors hover:text-gray-600";
+/**
+ * Tracks which section sits in the middle of the viewport. A thin band
+ * (45%–50% of the viewport height) is used so exactly one section is active at
+ * a time and no scroll listener is needed.
+ */
+function useActiveSection(enabled: boolean) {
+  const [activeId, setActiveId] = React.useState<string | null>(null);
+
+  React.useEffect(() => {
+    if (!enabled) {
+      setActiveId(null);
+      return;
+    }
+
+    const sections = OBSERVED_SECTION_IDS.map((id) =>
+      document.getElementById(id),
+    ).filter((element): element is HTMLElement => element !== null);
+
+    if (sections.length === 0) {
+      return;
+    }
+
+    const observer = new IntersectionObserver(
+      (entries) => {
+        for (const entry of entries) {
+          if (entry.isIntersecting) {
+            setActiveId(entry.target.id);
+          }
+        }
+      },
+      { rootMargin: "-45% 0px -50% 0px", threshold: 0 },
+    );
+
+    for (const section of sections) {
+      observer.observe(section);
+    }
+
+    return () => observer.disconnect();
+  }, [enabled]);
+
+  return activeId;
+}
 
 function NavLink({
   name,
   href,
+  active,
   onClick,
 }: {
   name: string;
   href: string;
+  active: boolean;
   onClick?: () => void;
 }) {
+  const className = `nav-link font-medium text-gray-900${active ? " is-active" : ""}`;
+
+  // `aria-current="true"` marks the section in view; `page` marks the route.
   if (href.startsWith("#")) {
     return (
-      <a href={navHref(href)} onClick={onClick} className={linkClass}>
+      <a
+        href={navHref(href)}
+        onClick={onClick}
+        className={className}
+        aria-current={active ? "true" : undefined}
+      >
         {name}
       </a>
     );
   }
 
   return (
-    <Link href={href} onClick={onClick} className={linkClass}>
+    <Link
+      href={href}
+      onClick={onClick}
+      className={className}
+      aria-current={active ? "page" : undefined}
+    >
       {name}
     </Link>
   );
@@ -53,8 +121,21 @@ function NavLink({
 
 export function Navbar() {
   const [open, setOpen] = React.useState(false);
+  const pathname = usePathname();
 
   const closeMenu = () => setOpen(false);
+
+  const onHome =
+    pathname === "/" || pathname === `${BASE_PATH}/` || pathname === BASE_PATH;
+  const activeSection = useActiveSection(onHome);
+
+  const activeHref = onHome
+    ? activeSection
+      ? `#${activeSection}`
+      : null
+    : pathname.startsWith("/blog")
+      ? "/blog"
+      : null;
 
   return (
     <header className="sticky top-0 z-50 w-full bg-white">
@@ -63,7 +144,7 @@ export function Navbar() {
           as="a"
           href={navHref("#home")}
           color="blue-gray"
-          className="text-lg font-bold"
+          className="brand-link text-lg font-bold"
         >
           Ali Khan
         </Typography>
@@ -71,7 +152,7 @@ export function Navbar() {
           <ul className="ml-10 hidden items-center gap-8 lg:flex">
             {NAV_MENU.map(({ name, href }) => (
               <li key={name}>
-                <NavLink name={name} href={href} />
+                <NavLink name={name} href={href} active={activeHref === href} />
               </li>
             ))}
           </ul>
@@ -100,14 +181,19 @@ export function Navbar() {
             <ul className="flex flex-col gap-4 pt-4">
               {NAV_MENU.map(({ name, href }) => (
                 <li key={name}>
-                  <NavLink name={name} href={href} onClick={closeMenu} />
+                  <NavLink
+                    name={name}
+                    href={href}
+                    active={activeHref === href}
+                    onClick={closeMenu}
+                  />
                 </li>
               ))}
               <li>
                 <a
                   href={navHref("#contact")}
                   onClick={closeMenu}
-                  className={linkClass}
+                  className="nav-link font-medium text-gray-900"
                 >
                   Contact
                 </a>
