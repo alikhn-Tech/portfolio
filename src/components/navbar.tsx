@@ -93,7 +93,7 @@ function NavLink({
   active: boolean;
   onClick?: () => void;
 }) {
-  const className = `nav-link font-medium text-white${active ? " is-active" : ""}`;
+ const className = `nav-link text-sm font-medium text-white${active ? " is-active" : ""}`;
 
   // `aria-current="true"` marks the section in view; `page` marks the route.
   if (href.startsWith("#")) {
