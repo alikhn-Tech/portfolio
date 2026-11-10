@@ -1,10 +1,12 @@
+
 "use client";
 
 import React from "react";
 import Link from "next/link";
+import Image from "next/image";
 import { usePathname } from "next/navigation";
 import { XMarkIcon, Bars3Icon } from "@heroicons/react/24/solid";
-import { Button, IconButton, Typography } from "@/components/ui";
+import { Button, IconButton } from "@/components/ui";
 import { BASE_PATH } from "@/lib/site";
 
 /**
@@ -141,14 +143,22 @@ export function Navbar() {
     <header className="sticky top-0 z-50 w-full bg-white">
       <div className="container mx-auto px-8 py-3 lg:px-0">
         <div className="navbar-dark flex items-center justify-between rounded-full bg-black px-5 py-2.5 shadow-sm lg:px-6">
-          <Typography
-            as="a"
+          {/* Brand logo */}
+          <a
             href={navHref("#home")}
-            color="white"
-            className="brand-link text-lg font-bold"
+            aria-label="Ali Khan - Home"
+            className="brand-link flex h-10 w-10 shrink-0 items-center justify-center overflow-hidden rounded-full"
           >
-            Ali Khan
-          </Typography>
+            <Image
+              src="/ali-khan-logo.png"
+              alt="Ali Khan"
+              width={40}
+              height={40}
+              priority
+              className="h-10 w-10 object-contain"
+            />
+          </a>
+
           <nav aria-label="Main navigation">
             <ul className="ml-10 hidden items-center gap-8 lg:flex">
               {NAV_MENU.map(({ name, href }) => (
@@ -162,9 +172,11 @@ export function Navbar() {
               ))}
             </ul>
           </nav>
+
           <a href={navHref("#contact")} className="hidden lg:block">
             <Button color="white">Contact</Button>
           </a>
+
           <IconButton
             variant="text"
             color="white"
@@ -181,6 +193,7 @@ export function Navbar() {
           </IconButton>
         </div>
       </div>
+
       {open && (
         <div className="container mx-auto px-8 pb-3 lg:px-0">
           <div className="nav-panel navbar-dark rounded-2xl bg-black px-6 pb-6 pt-2">
@@ -215,3 +228,4 @@ export function Navbar() {
 }
 
 export default Navbar;
+
