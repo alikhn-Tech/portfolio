@@ -56,13 +56,14 @@
  * two states never look identical.
  */
 .nav-link.is-active::after {
-  opacity: 0.45;
+  opacity: 0.6;
   transform: scaleX(1);
 }
 
 @media (hover: hover) and (pointer: fine) {
   .nav-link:hover {
-    color: rgb(75 85 99);
+    /* gray-300: readable against the black bar */
+    color: rgb(209 213 219);
   }
 
   .nav-link:hover::after {
@@ -88,6 +89,14 @@
   .brand-link:hover {
     opacity: 0.72;
   }
+}
+
+/*
+ * The bar is solid black, so the dark focus ring from the global rule would be
+ * invisible. Scoped override only inside the navbar.
+ */
+.navbar-dark :where(a, button):focus-visible {
+  outline-color: rgb(255 255 255 / 0.85);
 }
 
 @keyframes nav-panel-in {
@@ -427,7 +436,7 @@
   .nav-link.is-active::after,
   .nav-link:focus-visible::after {
     transform: scaleX(1);
-    opacity: 0.45;
+    opacity: 0.6;
   }
 
   .footer-link:hover {

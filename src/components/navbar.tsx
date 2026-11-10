@@ -91,7 +91,7 @@ function NavLink({
   active: boolean;
   onClick?: () => void;
 }) {
-  const className = `nav-link font-medium text-gray-900${active ? " is-active" : ""}`;
+  const className = `nav-link font-medium text-white${active ? " is-active" : ""}`;
 
   // `aria-current="true"` marks the section in view; `page` marks the route.
   if (href.startsWith("#")) {
@@ -139,67 +139,75 @@ export function Navbar() {
 
   return (
     <header className="sticky top-0 z-50 w-full bg-white">
-      <div className="container mx-auto flex items-center justify-between px-8 py-3 lg:px-0">
-        <Typography
-          as="a"
-          href={navHref("#home")}
-          color="blue-gray"
-          className="brand-link text-lg font-bold"
-        >
-          Ali Khan
-        </Typography>
-        <nav aria-label="Main navigation">
-          <ul className="ml-10 hidden items-center gap-8 lg:flex">
-            {NAV_MENU.map(({ name, href }) => (
-              <li key={name}>
-                <NavLink name={name} href={href} active={activeHref === href} />
-              </li>
-            ))}
-          </ul>
-        </nav>
-        <a href={navHref("#contact")} className="hidden lg:block">
-          <Button color="gray">Contact</Button>
-        </a>
-        <IconButton
-          variant="text"
-          color="gray"
-          onClick={() => setOpen((current) => !current)}
-          aria-label={open ? "Close navigation menu" : "Open navigation menu"}
-          aria-expanded={open}
-          className="ml-auto lg:hidden"
-        >
-          {open ? (
-            <XMarkIcon strokeWidth={2} className="h-6 w-6" />
-          ) : (
-            <Bars3Icon strokeWidth={2} className="h-6 w-6" />
-          )}
-        </IconButton>
-      </div>
-      {open && (
-        <div className="nav-panel container mx-auto border-t border-gray-200 px-8 pb-6 lg:px-0">
-          <nav aria-label="Mobile navigation">
-            <ul className="flex flex-col gap-4 pt-4">
+      <div className="container mx-auto px-8 py-3 lg:px-0">
+        <div className="navbar-dark flex items-center justify-between rounded-full bg-black px-5 py-2.5 shadow-sm lg:px-6">
+          <Typography
+            as="a"
+            href={navHref("#home")}
+            color="white"
+            className="brand-link text-lg font-bold"
+          >
+            Ali Khan
+          </Typography>
+          <nav aria-label="Main navigation">
+            <ul className="ml-10 hidden items-center gap-8 lg:flex">
               {NAV_MENU.map(({ name, href }) => (
                 <li key={name}>
                   <NavLink
                     name={name}
                     href={href}
                     active={activeHref === href}
-                    onClick={closeMenu}
                   />
                 </li>
               ))}
-              <li>
-                <a
-                  href={navHref("#contact")}
-                  onClick={closeMenu}
-                  className="nav-link font-medium text-gray-900"
-                >
-                  Contact
-                </a>
-              </li>
             </ul>
           </nav>
+          <a href={navHref("#contact")} className="hidden lg:block">
+            <Button color="white">Contact</Button>
+          </a>
+          <IconButton
+            variant="text"
+            color="white"
+            onClick={() => setOpen((current) => !current)}
+            aria-label={open ? "Close navigation menu" : "Open navigation menu"}
+            aria-expanded={open}
+            className="ml-auto rounded-full lg:hidden"
+          >
+            {open ? (
+              <XMarkIcon strokeWidth={2} className="h-6 w-6" />
+            ) : (
+              <Bars3Icon strokeWidth={2} className="h-6 w-6" />
+            )}
+          </IconButton>
+        </div>
+      </div>
+      {open && (
+        <div className="container mx-auto px-8 pb-3 lg:px-0">
+          <div className="nav-panel navbar-dark rounded-2xl bg-black px-6 pb-6 pt-2">
+            <nav aria-label="Mobile navigation">
+              <ul className="flex flex-col gap-4 pt-4">
+                {NAV_MENU.map(({ name, href }) => (
+                  <li key={name}>
+                    <NavLink
+                      name={name}
+                      href={href}
+                      active={activeHref === href}
+                      onClick={closeMenu}
+                    />
+                  </li>
+                ))}
+                <li>
+                  <a
+                    href={navHref("#contact")}
+                    onClick={closeMenu}
+                    className="nav-link font-medium text-white"
+                  >
+                    Contact
+                  </a>
+                </li>
+              </ul>
+            </nav>
+          </div>
         </div>
       )}
     </header>
