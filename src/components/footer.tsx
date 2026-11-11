@@ -4,27 +4,6 @@ import { SITE } from "@/lib/site";
 
 const SOCIAL_LINKS = [
   {
-  
-    label: "Email",
-    href: "mailto:alikhn.contact@gmail.com",
-    icon: (
-      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
-        <rect x="3" y="5" width="18" height="14" rx="2" />
-        <path d="m3 7 9 6 9-6" />
-      </svg>
-    ),
-  },
-  {
-    label: "Webistic",
-    href: "https://www.webistic.co/",
-    icon: (
-      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
-        <circle cx="12" cy="12" r="9" />
-        <path d="M3 12h18M12 3a15 15 0 0 1 0 18M12 3a15 15 0 0 0 0 18" />
-      </svg>
-    ),
-  },
-
     label: "LinkedIn",
     href: "https://www.linkedin.com/in/alikhan-tech",
     icon: (
@@ -51,6 +30,26 @@ const SOCIAL_LINKS = [
       </svg>
     ),
   },
+  {
+    label: "Email",
+    href: "mailto:alikhn.contact@gmail.com",
+    icon: (
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+        <rect x="3" y="5" width="18" height="14" rx="2" />
+        <path d="m3 7 9 6 9-6" />
+      </svg>
+    ),
+  },
+  {
+    label: "Webistic",
+    href: "https://www.webistic.co/",
+    icon: (
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+        <circle cx="12" cy="12" r="9" />
+        <path d="M3 12h18M12 3a15 15 0 0 1 0 18M12 3a15 15 0 0 0 0 18" />
+      </svg>
+    ),
+  },
 ];
 
 const CURRENT_YEAR = new Date().getFullYear();
@@ -70,8 +69,8 @@ export function Footer() {
                 <li key={label}>
                   <a
                     href={href}
-                    target="_blank"
-                    rel="noopener noreferrer"
+                    target={href.startsWith("mailto:") ? undefined : "_blank"}
+                    rel={href.startsWith("mailto:") ? undefined : "noopener noreferrer"}
                     aria-label={label}
                     title={label}
                     className="flex h-10 w-10 items-center justify-center rounded-full text-gray-700 transition-all duration-300 ease-out hover:-translate-y-1 hover:scale-110 hover:bg-gray-100 hover:text-gray-950 active:scale-95 focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-gray-700"
