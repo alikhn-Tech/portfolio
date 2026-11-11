@@ -29,13 +29,15 @@ const PROJECTS = [
     image: "/onyx-gentlemansalon.jpeg",
     category: "Website Development",
   },
-  {
-    title: "7DaysReady — Google Ads Campaign",
-    href: "https://7daysready.co.uk/",
-    image: "/7daysready-google-ads.jpeg",
-    category: "Google Ads & Performance Marketing",
-    linkLabel: "Visit client website",
-  },
+{
+  title: "7DaysReady — Google Ads Campaign",
+  href: "https://7daysready.co.uk/",
+  image: "/7daysready-google-ads.jpeg",
+  category: "Google Ads & Performance Marketing",
+  linkLabel: "Visit client website",
+  downloadHref: "/7%20Days%20Ready%20-%20Google%20Ads%20Performance%20Report.pdf",
+  downloadLabel: "Download Performance Report",
+},
 ];
 
 export function Projects() {
