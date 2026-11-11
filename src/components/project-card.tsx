@@ -9,6 +9,8 @@ interface ProjectCardProps {
   image: string;
   category: string;
   linkLabel?: string;
+  downloadHref?: string;
+  downloadLabel?: string;
 }
 
 export function ProjectCard({
