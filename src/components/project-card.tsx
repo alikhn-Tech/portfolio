@@ -19,6 +19,8 @@ export function ProjectCard({
   image,
   category,
   linkLabel = "Visit website",
+  downloadHref,
+  downloadLabel = "Download Performance Report",
 }: ProjectCardProps) {
   return (
     <Card
@@ -50,18 +52,34 @@ export function ProjectCard({
           {category}
         </Typography>
 
-        <a
-          href={href}
-          target="_blank"
-          rel="noreferrer"
-          className="mt-auto inline-flex items-center gap-2 font-medium text-gray-900 transition-colors hover:text-gray-600"
-        >
-          {linkLabel}
-          <ArrowTopRightOnSquareIcon
-            aria-hidden="true"
-            className="h-4 w-4 transition-transform duration-200 ease-out group-hover:-translate-y-0.5 group-hover:translate-x-0.5"
-          />
-        </a>
+      <div className="mt-auto flex flex-col items-start gap-3">
+  <a
+    href={href}
+    target="_blank"
+    rel="noreferrer"
+    className="inline-flex items-center gap-2 font-medium text-gray-900 transition-colors hover:text-gray-600"
+  >
+    {linkLabel}
+    <ArrowTopRightOnSquareIcon
+      aria-hidden="true"
+      className="h-4 w-4"
+    />
+  </a>
+
+  {downloadHref && (
+    <a
+      href={downloadHref}
+      download
+      className="inline-flex items-center gap-2 font-medium text-gray-900 transition-colors hover:text-gray-600"
+    >
+      {downloadLabel}
+      <ArrowTopRightOnSquareIcon
+        aria-hidden="true"
+        className="h-4 w-4"
+      />
+    </a>
+  )}
+</div>
       </CardBody>
     </Card>
   );
