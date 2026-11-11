@@ -53,7 +53,7 @@ function Hero({ hasPhoto }: { hasPhoto: boolean }) {
             variant="lead"
             className="hero-lead mb-4 !text-black md:pr-16 xl:pr-28"
           >
-            I'm {SITE.name}, a {SITE.role} and Co-Founder at {SITE.company}.
+           I&apos;m {SITE.name}, a {SITE.role} and Co-Founder at {SITE.company}.
             My work spans web development, AI automation, and Google Ads, where I
             combine software development and digital technologies to solve real
             business challenges.
