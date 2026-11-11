@@ -1,3 +1,4 @@
+
 "use client";
 
 import { useState } from "react";
@@ -11,11 +12,11 @@ function Monogram() {
       <div className="text-center">
         <span
           aria-hidden="true"
-          className="mx-auto grid h-32 w-32 place-items-center rounded-full bg-white text-4xl font-medium text-gray-900 shadow-sm"
+          className="mx-auto grid h-32 w-32 place-items-center rounded-full bg-white text-4xl font-medium text-black shadow-sm"
         >
           AK
         </span>
-        <Typography className="mt-4 font-normal !text-gray-500">
+        <Typography className="mt-4 font-normal !text-black">
           Portrait to be added
         </Typography>
       </div>
@@ -24,8 +25,6 @@ function Monogram() {
 }
 
 function Hero({ hasPhoto }: { hasPhoto: boolean }) {
-  // `hasPhoto` is resolved at build time, so a missing file never renders a
-  // broken image; `failed` covers a file that exists but cannot be decoded.
   const [failed, setFailed] = useState(false);
   const showPhoto = hasPhoto && !failed;
 
@@ -37,26 +36,29 @@ function Hero({ hasPhoto }: { hasPhoto: boolean }) {
             as="p"
             variant="h6"
             color="blue-gray"
-            className="hero-eyebrow mb-3 uppercase tracking-wide"
+            className="hero-eyebrow mb-3 uppercase tracking-wide !text-black"
           >
             {SITE.name}
           </Typography>
+
           <Typography
             variant="h1"
             color="blue-gray"
-           className="hero-lead mb-4 !text-black md:pr-16 xl:pr-28"
+            className="hero-title mb-4 text-3xl !leading-tight !text-black lg:text-5xl"
           >
             {SITE.role}
           </Typography>
+
           <Typography
             variant="lead"
-            className="hero-lead mb-4 !text-gray-500 md:pr-16 xl:pr-28"
+            className="hero-lead mb-4 !text-black md:pr-16 xl:pr-28"
           >
-            I&apos;m {SITE.name}, a {SITE.role} and Co-Founder at {SITE.company}.
+            I'm {SITE.name}, a {SITE.role} and Co-Founder at {SITE.company}.
             My work spans web development, AI automation, and Google Ads, where I
             combine software development and digital technologies to solve real
             business challenges.
           </Typography>
+
           <div className="hero-actions mt-8 flex flex-col gap-4 sm:flex-row">
             <a href="#projects">
               <Button color="gray">View my work</Button>
@@ -68,6 +70,7 @@ function Hero({ hasPhoto }: { hasPhoto: boolean }) {
             </a>
           </div>
         </div>
+
         <div className="hero-portrait relative h-[28rem] w-full overflow-hidden rounded-xl bg-gray-100 sm:h-[36rem]">
           {showPhoto ? (
             <Image
