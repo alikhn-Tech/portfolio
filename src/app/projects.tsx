@@ -25,7 +25,7 @@ const PROJECTS = [
   },
   {
     title: "Onyx Gentleman Salon",
-    href: "https://onyxgentlemansalon.com/",
+    href: "https://onyxgentlemansaloon.com/",
     image: "/onyx-gentlemansalon.jpeg",
     category: "Website Development",
   },
