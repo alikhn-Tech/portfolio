@@ -44,7 +44,7 @@ function Hero({ hasPhoto }: { hasPhoto: boolean }) {
           <Typography
             variant="h1"
             color="blue-gray"
-            className="hero-title mb-4 text-3xl !leading-tight lg:text-5xl"
+           className="hero-lead mb-4 !text-black md:pr-16 xl:pr-28"
           >
             {SITE.role}
           </Typography>
