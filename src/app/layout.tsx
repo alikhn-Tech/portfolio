@@ -40,10 +40,10 @@ export const metadata: Metadata = {
     googleBot: { index: true, follow: true, "max-image-preview": "large" },
   },
   icons: {
-    icon: [{ url: asset("favicon.png"), type: "image/png" }],
-    shortcut: [{ url: asset("favicon.png"), type: "image/png" }],
-    apple: [{ url: asset("favicon.png"), type: "image/png" }],
-  },
+  icon: [{ url: asset("ali-khan-logo.png"), type: "image/png" }],
+  shortcut: [{ url: asset("ali-khan-logo.png"), type: "image/png" }],
+  apple: [{ url: asset("ali-khan-logo.png"), type: "image/png" }],
+},
   openGraph: {
     type: "website",
     locale: "en_US",
