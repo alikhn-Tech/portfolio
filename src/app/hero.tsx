@@ -33,18 +33,17 @@ function Hero({ hasPhoto }: { hasPhoto: boolean }) {
       <div className="container mx-auto grid h-full min-h-[60vh] w-full grid-cols-1 items-center gap-10 lg:grid-cols-2">
         <div className="row-start-2 lg:row-auto">
           <Typography
-            as="p"
-            variant="h6"
+            variant="h1"
             color="blue-gray"
-            className="hero-eyebrow mb-3 uppercase tracking-wide !text-black"
+            className="hero-title mb-2 text-3xl !leading-tight !text-black lg:text-5xl"
           >
             {SITE.name}
           </Typography>
 
           <Typography
-            variant="h1"
+            variant="h2"
             color="blue-gray"
-            className="hero-title mb-4 text-3xl !leading-tight !text-black lg:text-5xl"
+            className="mb-4 text-2xl !leading-tight !text-black lg:text-4xl"
           >
             {SITE.role}
           </Typography>
@@ -53,10 +52,10 @@ function Hero({ hasPhoto }: { hasPhoto: boolean }) {
             variant="lead"
             className="hero-lead mb-4 !text-black md:pr-16 xl:pr-28"
           >
-           I&apos;m {SITE.name}, a {SITE.role} and Co-Founder at {SITE.company}.
-            My work spans web development, AI automation, and Google Ads, where I
-            combine software development and digital technologies to solve real
-            business challenges.
+            I&apos;m a {SITE.role} and Co-Founder at {SITE.company}. My work spans
+            web development, AI automation, and Google Ads, where I combine
+            software development and digital technologies to solve real business
+            challenges.
           </Typography>
 
           <div className="hero-actions mt-8 flex flex-col gap-4 sm:flex-row">
