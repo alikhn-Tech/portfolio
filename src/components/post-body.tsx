@@ -4,6 +4,10 @@ import Image from "next/image";
 import { imageUrlFor, type SanityImage } from "@/lib/sanity";
 
 const components = {
+  block: {
+    // The article template owns the page H1; CMS H1 blocks are section headings.
+    h1: ({ children }: { children?: React.ReactNode }) => <h2>{children}</h2>,
+  },
   types: {
     image: ({ value }: { value: SanityImage & { caption?: string } }) => {
       const url = imageUrlFor(value, { width: 1600, height: 900 });
@@ -18,6 +22,7 @@ const components = {
             alt={value.alt ?? ""}
             width={1600}
             height={900}
+            sizes="(min-width: 832px) 768px, 85vw"
             className="h-auto w-full rounded-xl"
           />
           {value.caption ? (
@@ -58,6 +63,50 @@ const components = {
   },
 };
 
-export function PostBody({ value }: { value: PortableTextBlock[] }) {
-  return <PortableText value={value} components={components} />;
+function normalizeHeadingText(value: string) {
+  return value
+    .normalize("NFKC")
+    .replace(/\s+/g, " ")
+    .trim()
+    .replace(/[.!?…]+$/, "")
+    .toLowerCase();
+}
+
+function withoutLeadingDuplicateTitle(
+  value: PortableTextBlock[],
+  title: string,
+) {
+  const firstBlock = value[0];
+  if (
+    !firstBlock ||
+    firstBlock._type !== "block" ||
+    !/^h[1-6]$/.test(firstBlock.style ?? "")
+  ) {
+    return value;
+  }
+
+  const headingText = firstBlock.children
+    .map((child) =>
+      "text" in child && typeof child.text === "string" ? child.text : "",
+    )
+    .join("");
+
+  return normalizeHeadingText(headingText) === normalizeHeadingText(title)
+    ? value.slice(1)
+    : value;
+}
+
+export function PostBody({
+  value,
+  title,
+}: {
+  value: PortableTextBlock[];
+  title: string;
+}) {
+  return (
+    <PortableText
+      value={withoutLeadingDuplicateTitle(value, title)}
+      components={components}
+    />
+  );
 }

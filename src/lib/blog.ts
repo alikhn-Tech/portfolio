@@ -27,10 +27,7 @@ const POST_FIELDS = `
   coverImage { asset, alt }
 `;
 
-/**
- * Posts are fetched at build time (the site is a static export). A Sanity
- * webhook firing a Vercel Deploy Hook is what publishes new content.
- */
+/** Posts are fetched at request time and refreshed through route-level ISR. */
 export async function getPosts(): Promise<PostSummary[]> {
   if (!sanityClient) {
     return [];

@@ -1,5 +1,3 @@
-"use client";
-
 import { Typography, buttonClassName } from "@/components/ui";
 import {
   ArrowDownTrayIcon,

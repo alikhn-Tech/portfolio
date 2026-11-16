@@ -126,6 +126,7 @@ export default async function BlogIndexPage() {
                             alt={post.coverImage?.alt ?? ""}
                             width={600}
                             height={400}
+                            sizes="(min-width: 540px) 200px, 85vw"
                             className="h-40 w-full rounded-lg object-cover sm:h-[120px]"
                           />
                         ) : null}

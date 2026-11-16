@@ -21,7 +21,8 @@ const nextConfig = {
   ...(basePath ? { basePath, assetPrefix: basePath } : {}),
   ...(isStaticExport ? { output: "export" } : {}),
   images: {
-    unoptimized: true,
+    unoptimized: isStaticExport,
+    remotePatterns: [{ protocol: "https", hostname: "cdn.sanity.io" }],
   },
   poweredByHeader: false,
 };

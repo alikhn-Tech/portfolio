@@ -154,13 +154,14 @@ export default async function PostPage({ params }: PageProps) {
                 alt={post.coverImage?.alt ?? ""}
                 width={1600}
                 height={900}
+                sizes="(min-width: 832px) 768px, 85vw"
                 priority
                 className="mt-10 h-auto w-full rounded-xl"
               />
             ) : null}
 
             <div className="prose prose-gray mt-10 max-w-none prose-headings:font-semibold prose-headings:text-slate-900 prose-p:text-gray-600 prose-li:text-gray-600 prose-strong:text-gray-900">
-              <PostBody value={post.body} />
+              <PostBody value={post.body} title={post.title} />
             </div>
 
             <div className="mt-16 border-t border-gray-200 pt-8">

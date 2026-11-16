@@ -1,6 +1,3 @@
-
-"use client";
-
 import { ProjectCard } from "@/components";
 import { Typography } from "@/components/ui";
 
@@ -9,30 +6,35 @@ const PROJECTS = [
     title: "7DaysReady",
     href: "https://7daysready.co.uk/",
     image: "/7daysready-website.jpeg",
+    imageAlt: "7 Days Ready driving lessons website homepage.",
     category: "Website Development",
   },
   {
     title: "Webistic Marketing Solutions",
     href: "https://webistic.co/",
     image: "/webistic-website.jpeg",
+    imageAlt: "Webistic Marketing Solutions website homepage.",
     category: "Website Development",
   },
   {
     title: "Parkstone Minibuses",
     href: "https://parkstoneminibuses.com/",
     image: "/parkstone-minibuses.jpeg",
+    imageAlt: "Parkstone Minibuses website homepage.",
     category: "Website Development",
   },
   {
     title: "Onyx Gentleman Salon",
     href: "https://onyxgentlemansaloon.com/",
     image: "/onyx-gentlemansalon.jpeg",
+    imageAlt: "Onyx Gentleman Salon website homepage.",
     category: "Website Development",
   },
 {
   title: "7DaysReady — Google Ads Campaign",
   href: "https://7daysready.co.uk/",
   image: "/7daysready-google-ads.jpeg",
+  imageAlt: "Google Ads campaign overview for 7DaysReady.",
   category: "Google Ads & Performance Marketing",
   linkLabel: "Visit client website",
   downloadHref: "/7%20Days%20Ready%20-%20Google%20Ads%20Performance%20Report.pdf",

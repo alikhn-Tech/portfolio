@@ -1,10 +1,12 @@
 # Ali Khan — Portfolio
 
 Personal portfolio for **Ali Khan**, Junior Software Engineer and Co-Founder at
-[Webistic Marketing Solutions](https://webistic.co/).
+[Webistic Marketing Solutions](https://webistic.co/). The Vercel deployment
+uses Next.js ISR for the blog; a separate static export is available for GitHub
+Pages.
 
-Built with Next.js (App Router), React 19, Tailwind CSS and Heroicons, and
-exported as a fully static site.
+Built with Next.js (App Router), React 19, Tailwind CSS and Heroicons. The
+default deployment supports ISR; static export is available for GitHub Pages.
 
 ## Stack
 
@@ -33,8 +35,8 @@ npm run dev      # http://localhost:3000
 Other scripts:
 
 ```bash
-npm run build      # static export into out/
-npm run preview    # serve the exported site locally
+npm run build      # production Next.js build (supports ISR)
+npm run preview    # serve the production build locally
 npm run lint       # ESLint
 npm run typecheck  # tsc --noEmit
 ```

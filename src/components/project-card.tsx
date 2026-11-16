@@ -7,6 +7,7 @@ interface ProjectCardProps {
   title: string;
   href: string;
   image: string;
+  imageAlt: string;
   category: string;
   linkLabel?: string;
   downloadHref?: string;
@@ -17,6 +18,7 @@ export function ProjectCard({
   title,
   href,
   image,
+  imageAlt,
   category,
   linkLabel = "Visit website",
   downloadHref,
@@ -31,9 +33,9 @@ export function ProjectCard({
       <div className="relative aspect-[16/10] w-full overflow-hidden bg-gray-100">
         <Image
           src={image}
-          alt={title}
+          alt={imageAlt}
           fill
-          sizes="(max-width: 768px) 100vw, (max-width: 1280px) 50vw, 33vw"
+          sizes="(max-width: 719px) 85vw, (max-width: 1139px) 45vw, (max-width: 1319px) 29vw, 413px"
           className="object-cover transition-transform duration-500 ease-out group-hover:scale-105"
         />
       </div>

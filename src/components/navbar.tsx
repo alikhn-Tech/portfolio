@@ -6,7 +6,7 @@ import Link from "next/link";
 import Image from "next/image";
 import { usePathname } from "next/navigation";
 import { XMarkIcon, Bars3Icon } from "@heroicons/react/24/solid";
-import { Button, IconButton } from "@/components/ui";
+import { buttonClassName, IconButton } from "@/components/ui";
 import { BASE_PATH } from "@/lib/site";
 
 /**
@@ -173,8 +173,14 @@ export function Navbar() {
             </ul>
           </nav>
 
-          <a href={navHref("#contact")} className="hidden lg:block">
-            <Button color="white">Contact</Button>
+          <a
+            href={navHref("#contact")}
+            className={buttonClassName({
+              color: "white",
+              className: "hidden lg:inline-flex",
+            })}
+          >
+            Contact
           </a>
 
           <IconButton
@@ -186,9 +192,17 @@ export function Navbar() {
             className="ml-auto rounded-full lg:hidden"
           >
             {open ? (
-              <XMarkIcon strokeWidth={2} className="h-6 w-6" />
+              <XMarkIcon
+                aria-hidden="true"
+                strokeWidth={2}
+                className="h-6 w-6"
+              />
             ) : (
-              <Bars3Icon strokeWidth={2} className="h-6 w-6" />
+              <Bars3Icon
+                aria-hidden="true"
+                strokeWidth={2}
+                className="h-6 w-6"
+              />
             )}
           </IconButton>
         </div>

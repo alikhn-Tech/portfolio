@@ -2,8 +2,8 @@ import { BASE_PATH, SITE, SITE_URL } from "./site";
 
 /**
  * Absolute URL for a public path, respecting the configured base path.
- * The homepage keeps its trailing slash so canonicals and sitemap `<loc>`
- * values match exactly.
+ * Next metadata serializes the homepage canonical without a trailing slash,
+ * matching the root URL emitted by the sitemap.
  */
 export function absoluteUrl(pathname = "/") {
   const clean = pathname.startsWith("/") ? pathname : `/${pathname}`;
@@ -31,7 +31,7 @@ export const personNode = {
   url: absoluteUrl("/"),
   email: `mailto:${SITE.email}`,
   image: `${SITE_URL}${BASE_PATH}/${SITE.photo}`,
-  sameAs: [SITE.linkedinUrl],
+  sameAs: [SITE.linkedinUrl, SITE.githubUrl],
   worksFor: {
     "@type": "Organization",
     name: SITE.company,

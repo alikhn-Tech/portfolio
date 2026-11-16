@@ -3,7 +3,7 @@
 
 import { useState } from "react";
 import Image from "next/image";
-import { Button, Typography } from "@/components/ui";
+import { buttonClassName, Typography } from "@/components/ui";
 import { SITE, asset } from "@/lib/site";
 
 function Monogram() {
@@ -59,13 +59,17 @@ function Hero({ hasPhoto }: { hasPhoto: boolean }) {
           </Typography>
 
           <div className="hero-actions mt-8 flex flex-col gap-4 sm:flex-row">
-            <a href="#projects">
-              <Button color="gray">View my work</Button>
+            <a href="#projects" className={buttonClassName()}>
+              View my work
             </a>
-            <a href="#contact">
-              <Button variant="outlined" color="gray">
-                Get in touch
-              </Button>
+            <a
+              href="#contact"
+              className={buttonClassName({
+                variant: "outlined",
+                color: "gray",
+              })}
+            >
+              Get in touch
             </a>
           </div>
         </div>
@@ -77,7 +81,7 @@ function Hero({ hasPhoto }: { hasPhoto: boolean }) {
               alt={`Portrait of ${SITE.name}`}
               fill
               priority
-              sizes="(min-width: 1024px) 50vw, 100vw"
+              sizes="(min-width: 960px) 50vw, 85vw"
               className="object-cover object-top"
               onError={() => setFailed(true)}
             />

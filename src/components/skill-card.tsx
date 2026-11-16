@@ -32,11 +32,11 @@ export function SkillCard({
       <CardBody className="grid h-full content-start justify-center text-center">
         {isService ? (
           <div className="mx-auto mb-6 grid h-14 w-14 place-items-center">
-            <Icon className="service-logo h-8 w-8" />
+            <Icon aria-hidden="true" className="service-logo h-8 w-8" />
           </div>
         ) : (
           <div className="process-icon mx-auto mb-6 grid h-12 w-12 place-items-center rounded-full bg-gray-900 p-2.5 text-white shadow transition-transform duration-200 ease-out group-hover:scale-110 motion-reduce:transition-none motion-reduce:group-hover:scale-100">
-            <Icon className="h-6 w-6" strokeWidth={2} />
+            <Icon aria-hidden="true" className="h-6 w-6" strokeWidth={2} />
           </div>
         )}
         <Typography

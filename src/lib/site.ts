@@ -45,6 +45,7 @@ export const SITE = {
   phoneDisplay: "+92 321 5720722",
   whatsappUrl: "https://wa.me/923215720722",
   linkedinUrl: "https://www.linkedin.com/in/alikhan-tech",
+  githubUrl: "https://github.com/alikhn-Tech",
   /** File inside `public/` used for the hero portrait. */
   photo: "ali-khan.jpg",
   /** File inside `public/` offered by the "Download Resume" button. */
