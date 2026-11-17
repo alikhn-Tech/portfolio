@@ -1,3 +1,4 @@
+
 import { ProjectCard } from "@/components";
 import { Typography } from "@/components/ui";
 
@@ -30,16 +31,23 @@ const PROJECTS = [
     imageAlt: "Onyx Gentleman Salon website homepage.",
     category: "Website Development",
   },
-{
-  title: "7DaysReady — Google Ads Campaign",
-  href: "https://7daysready.co.uk/",
-  image: "/7daysready-google-ads.jpeg",
-  imageAlt: "Google Ads campaign overview for 7DaysReady.",
-  category: "Google Ads & Performance Marketing",
-  linkLabel: "Visit client website",
-  downloadHref: "/7%20Days%20Ready%20-%20Google%20Ads%20Performance%20Report.pdf",
-  downloadLabel: "Download Performance Report",
-},
+  {
+    title: "7DaysReady — Google Ads Campaign",
+    href: "https://7daysready.co.uk/",
+    image: "/7daysready-google-ads.jpeg",
+    imageAlt: "Google Ads campaign overview for 7DaysReady.",
+    category: "Google Ads & Performance Marketing",
+    linkLabel: "Visit client website",
+    downloadHref: "/7%20Days%20Ready%20-%20Google%20Ads%20Performance%20Report.pdf",
+    downloadLabel: "Download Performance Report",
+  },
+  {
+    title: "Webistic Image Compressor",
+    href: "https://webisticimagecompressor.online/",
+    image: "/webisticimagecompressor.jpeg",
+    imageAlt: "Webistic Image Compressor web application.",
+    category: "Web Application Development",
+  },
 ];
 
 export function Projects() {
@@ -54,7 +62,8 @@ export function Projects() {
           variant="lead"
           className="mx-auto w-full px-4 font-normal !text-gray-500 lg:w-6/12"
         >
-          A selection of my work across website development and Google Ads.
+          A selection of my work across website development, web applications,
+          and Google Ads.
         </Typography>
       </div>
 
