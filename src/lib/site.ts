@@ -37,7 +37,7 @@ export const SITE = {
   role: "Junior Software Engineer",
   company: "Webistic Marketing Solutions",
   companyUrl: "https://webistic.co/",
-  email: "contact@alikhn.com",
+ email: "alikhan.contact@gmail.com",
   phoneDisplay: "+92 321 5720722",
   whatsappUrl: "https://wa.me/923215720722",
   linkedinUrl: "https://www.linkedin.com/in/alikhan-tech",

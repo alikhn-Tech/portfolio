@@ -32,7 +32,7 @@ const SOCIAL_LINKS = [
   },
   {
     label: "Email",
-    href: "mailto:contact@alikhn.com",
+href: `mailto:${SITE.email}`,
     icon: (
       <svg
         viewBox="0 0 24 24"
