@@ -105,7 +105,7 @@ Copy [.env.example](.env.example) to `.env` and adjust:
 
 | Variable | Purpose |
 | --- | --- |
-| `NEXT_PUBLIC_SITE_URL` | Canonical origin for metadata, sitemap and robots. Defaults to `http://localhost:3000`. |
+| `NEXT_PUBLIC_SITE_URL` | Canonical origin for metadata, sitemap and robots. Defaults to `https://www.alikhn.com`; use `http://localhost:3000` for local development. |
 | `NEXT_PUBLIC_BASE_PATH` | Sub-path hosting only, e.g. `/my-repo` for GitHub Pages. Leave empty on Vercel. |
 | `NEXT_PUBLIC_SANITY_PROJECT_ID` | Defaults to `utmnj4rd`, so no setup is needed. |
 | `NEXT_PUBLIC_SANITY_DATASET` | Defaults to `production`. |
@@ -149,7 +149,8 @@ deploys normally — the dataset can be empty.
 Import the repository and deploy — no configuration needed. The blog is served
 with ISR, so the project must build as a normal Next.js app (the default).
 
-Set `NEXT_PUBLIC_SITE_URL` to the final domain once it is assigned.
+Set the production `NEXT_PUBLIC_SITE_URL` environment variable to
+`https://www.alikhn.com`.
 
 ### GitHub Pages
 
